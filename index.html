@@ -444,14 +444,14 @@ if(text) text.remove()
 
 }
   function revealVideo(el){
-
+music.pause()
 el.classList.add("reveal")
 
 let text = el.querySelector("span")
 if(text) text.remove()
 
 let vid = el.querySelector("video")
-
+vid.muted = false
 vid.controls = true
 vid.play()
 
