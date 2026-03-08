@@ -1,316 +1,521 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Nayla 💚</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #e6f4ea, #cdeac0);
-            overflow-x: hidden;
-            text-align: center;
-            color: #5f8f6f;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Nayla 💚</title>
 
-        .blur {
-            position: fixed;
-            width: 350px;
-            height: 350px;
-            border-radius: 50%;
-            filter: blur(140px);
-            opacity: .6;
-            animation: float 12s infinite alternate ease-in-out;
-            z-index: 1;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
-        .blur1 { background: #b7e4c7; top: -100px; left: -100px; }
-        .blur2 { background: #d8f3dc; bottom: -100px; right: -100px; }
+<style>
 
-        @keyframes float {
-            from { transform: translateY(0) }
-            to { transform: translateY(40px) }
-        }
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(135deg,#e6f4ea,#cdeac0);
+overflow-x:hidden;
+text-align:center;
+color:#5f8f6f;
+}
 
-        section {
-            padding: 100px 20px;
-            position: relative;
-            z-index: 2;
-        }
+/* floating blur background */
 
-        .glass {
-            background: rgba(255, 255, 255, .35);
-            backdrop-filter: blur(20px);
-            padding: 45px;
-            border-radius: 25px;
-            max-width: 600px;
-            margin: auto;
-            box-shadow: 0 15px 40px rgba(0,0,0,.08);
-        }
+.blur{
+position:fixed;
+width:350px;
+height:350px;
+border-radius:50%;
+filter:blur(140px);
+opacity:.6;
+animation:float 12s infinite alternate ease-in-out;
+}
 
-        .hidden { display: none; }
+.blur1{
+background:#b7e4c7;
+top:-100px;
+left:-100px;
+}
 
-        button {
-            background: #7fb77e;
-            border: none;
-            padding: 14px 30px;
-            font-size: 16px;
-            color: white;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: .3s;
-        }
+.blur2{
+background:#d8f3dc;
+bottom:-100px;
+right:-100px;
+}
 
-        button:hover { transform: scale(1.07); }
+@keyframes float{
+from{transform:translateY(0)}
+to{transform:translateY(40px)}
+}
 
-        h1 {
-            font-size: 36px;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeUp 2s forwards;
-        }
+section{
+padding:100px 20px;
+position:relative;
+z-index:2;
+}
 
-        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+/* glass card */
 
-        .gallery img, .gallery video {
-            width: 80%;
-            max-width: 240px;
-            border-radius: 18px;
-            margin: 12px;
-            box-shadow: 0 10px 20px rgba(0,0,0,.15);
-            transition: .6s;
-            filter: blur(12px);
-        }
+.glass{
+background:rgba(255,255,255,.35);
+backdrop-filter:blur(20px);
+padding:45px;
+border-radius:25px;
+max-width:600px;
+margin:auto;
+box-shadow:0 15px 40px rgba(0,0,0,.08);
+}
 
-        .photo { position: relative; display: inline-block; cursor: pointer; }
+.hidden{
+display:none;
+}
 
-        .photo span {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0,0,0,.45);
-            color: white;
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-size: 14px;
-            z-index: 10;
-        }
+button{
+background:#7fb77e;
+border:none;
+padding:14px 30px;
+font-size:16px;
+color:white;
+border-radius:30px;
+cursor:pointer;
+transition:.3s;
+}
 
-        .photo.reveal img, .photo.reveal video { filter: blur(0); }
+button:hover{
+transform:scale(1.07);
+}
 
-        .photo p { opacity: 0; transition: 0.6s; margin-top: 8px; }
-        .photo.reveal p { opacity: 1; }
+h1{
+font-size:36px;
+opacity:0;
+transform:translateY(20px);
+animation:fadeUp 2s forwards;
+}
 
-        .rating-section {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px dashed #7fb77e;
-        }
-        .stars {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin: 15px 0;
-            font-size: 30px;
-        }
-        .star {
-            cursor: pointer;
-            transition: transform 0.2s;
-            filter: grayscale(1);
-        }
-        .star:hover { transform: scale(1.2); }
-        .star.active { filter: grayscale(0); }
+h1:nth-child(2){
+animation-delay:.5s;
+}
 
-        .heart {
-            position: fixed;
-            bottom: -20px;
-            font-size: 20px;
-            animation: rise 7s linear infinite;
-            z-index: 1;
-        }
+@keyframes fadeUp{
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
 
-        @keyframes rise {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(-900px); opacity: 0; }
-        }
+p{
+line-height:1.8;
+}
 
-        @keyframes fall { to { transform: translateY(100vh); } }
-    </style>
+.gallery img{
+width:80%;
+max-width:240px;
+border-radius:18px;
+margin:12px;
+box-shadow:0 10px 20px rgba(0,0,0,.15);
+transition:.3s;
+}
+
+.gallery img:hover{
+transform:scale(1.05);
+}
+
+/* floating hearts */
+
+.heart{
+position:fixed;
+bottom:-20px;
+font-size:20px;
+color:#7fb77e;
+animation:rise 7s linear infinite;
+}
+
+@keyframes rise{
+0%{
+transform:translateY(0);
+opacity:1;
+}
+100%{
+transform:translateY(-900px);
+opacity:0;
+}
+}
+
+@keyframes fall{
+to{
+transform:translateY(100vh);
+}
+
+}
+.photo{
+position:relative;
+display:inline-block;
+cursor:pointer;
+}
+
+.photo img{
+filter:blur(12px);
+transition:0.6s;
+}
+
+.photo span{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:rgba(0,0,0,.45);
+color:white;
+padding:8px 14px;
+border-radius:20px;
+font-size:14px;
+}
+
+.photo.reveal img{
+filter:blur(0);
+}
+
+.photo p{
+opacity:0;
+transition:0.6s;
+margin-top:8px;
+}
+
+.photo.reveal p{
+opacity:1;
+}
+  .photo video{
+width:80%;
+max-width:240px;
+border-radius:18px;
+filter:blur(12px);
+transition:.6s;
+}
+
+.photo.reveal video{
+filter:blur(0);
+}
+
+/* Style tambahan untuk Rating Bintang */
+.rating-area {
+  margin-top: 30px;
+  border-top: 1px dashed #7fb77e;
+  padding-top: 20px;
+}
+.stars {
+  font-size: 35px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+.star {
+  filter: grayscale(1);
+  transition: 0.3s;
+}
+.star.active {
+  filter: grayscale(0);
+  transform: scale(1.2);
+}
+</style>
 </head>
+
 <body>
 
-    <div class="blur blur1"></div>
-    <div class="blur blur2"></div>
+<div class="blur blur1"></div>
+<div class="blur blur2"></div>
 
-    <section id="intro">
-        <div class="glass">
-            <p>di antara banyaknya hari<br>yang datang dan pergi,<br><br>ada satu hari<br>yang selalu terasa sedikit lebih istimewa.<br><br>bukan karena langitnya berbeda,<br>atau mataharinya lebih terang.<br><br>tapi karena di hari ini,<br>seseorang yang istimewa<br>pernah lahir ke dunia.<br><br>dan orang itu…<br>adalah kamu.</p>
-            <br>
-            <button onclick="startSurprise()">klik ini yaa 💗</button>
-        </div>
-    </section>
+<section id="intro">
 
-    <section id="main" class="hidden">
-        <div class="glass">
-            <h1>Happy Birthday🥳🎉</h1>
-            <h1>Princess Nanayy</h1>
-            <br>
-            <button onclick="playMusic()">🎵 Putar Lagu</button>
-            <audio id="music" src="bestparpart.m4a" loop></audio>
-            <audio id="voiceNote" src="makasih.m4a"></audio>
-            
-            <div id="lyricsContainer"></div>
-            <br>
-            <p>Sebelum nya aku mau ucapin.. Selamat ulang tahun yaa cantikk, semoga di tahun ini jadi tahun yang sukses buat kamu, semoga kamu di sehatkan selalu, panjang umurnya, dilancarkan rezeki nya, makin cantik, pinter, sholehah. Semoga lolos masuk UI, dan apa yang kamu cita-citakan tercapai, AAMIIN.</p>
-            
-            <div class="gallery">
-                <div class="photo" onclick="revealPhoto(this)">
-                    <img src="foto1.jpg">
-                    <span>klik fotonya 💗</span>
-                    <p>inget ga ini fotbar pertama kitaa</p>
-                </div>
-                <div class="photo" onclick="revealPhoto(this)">
-                    <img src="foto2.jpg">
-                    <span>klik fotonya 💗</span>
-                    <p>my favorite picture of us</p>
-                </div>
-                <div class="photo" onclick="revealPhoto(this)">
-                    <img src="foto3.jpg">
-                    <span>klik fotonya 💗</span>
-                    <p>my favorite picture of u🫰🏻</p>
-                </div>
-            </div>
+<div class="glass">
 
-            <br>
-            <div class="gallery">
-                <div class="photo" onclick="revealVideo(this)">
-                    <video id="myVideo" width="240" muted playsinline>
-                        <source src="video1.mp4" type="video/mp4">
-                    </video>
-                    <span>klik videonya 💗</span>
-                    <p>ini lucu 🤏🏻 jadi aku masukin sini</p>
-                </div>
-            </div>
+<p>
+di antara banyaknya hari<br>
+yang datang dan pergi,<br><br>
 
-            <p>maaf ya aku ga bisa kasih banyak buat kamu but i hope all of this can make u happy paipaii👋🏻</p>
-            <h2>Thanks for coming into my life, i will always wish you all the best 💗</h2>
+ada satu hari<br>
+yang selalu terasa sedikit lebih istimewa.<br><br>
 
-            <div class="rating-section">
-                <p id="ratingText">kasih rating dongss 🥺👉🏻👈🏻</p>
-                <div class="stars">
-                    <span class="star" onclick="giveRating(1)">⭐</span>
-                    <span class="star" onclick="giveRating(2)">⭐</span>
-                    <span class="star" onclick="giveRating(3)">⭐</span>
-                    <span class="star" onclick="giveRating(4)">⭐</span>
-                    <span class="star" onclick="giveRating(5)">⭐</span>
-                </div>
-            </div>
+bukan karena langitnya berbeda,<br>
+atau mataharinya lebih terang.<br><br>
 
-        </div>
-    </section>
+tapi karena di hari ini,<br>
+seseorang yang istimewa<br>
+pernah lahir ke dunia.<br><br>
 
-    <script>
-        let music = document.getElementById("music");
-        let video = document.getElementById("myVideo");
-        let voiceNote = document.getElementById("voiceNote");
+dan orang itu…<br>
+adalah kamu.
+</p>
 
-        function startSurprise() {
-            document.getElementById("intro").classList.add("hidden");
-            document.getElementById("main").classList.remove("hidden");
-            createConfetti();
-        }
+<br>
 
-        function playMusic() {
-            music.volume = 0;
-            music.play().then(() => {
-                let fade = setInterval(() => {
-                    if (music.volume < 1) { music.volume += 0.05; } 
-                    else { clearInterval(fade); }
-                }, 300);
-            }).catch(e => console.log("Gagal putar musik:", e));
-            showLyrics();
-        }
+<button onclick="startSurprise()">klik ini yaa 💗</button>
 
-        function showLyrics() {
-            let lines = ["Awalnya aku mau bikin lagu buat kamu", "Ternyata bikin lagu itu susah😭", "intinya Semoga kamu selalu bahagia, u always be my favorite girl🫰🏻."];
-            let container = document.getElementById("lyricsContainer");
-            container.innerHTML = ""; 
-            lines.forEach((line, index) => {
-                setTimeout(() => {
-                    let p = document.createElement("p");
-                    p.innerText = line;
-                    p.style.opacity = "0";
-                    p.style.transition = "opacity 2s";
-                    container.appendChild(p);
-                    setTimeout(() => { p.style.opacity = "1"; }, 200);
-                }, index * 3000);
-            });
-        }
+</div>
 
-        function revealPhoto(el) {
-            el.classList.add("reveal");
-            let text = el.querySelector("span");
-            if (text) text.remove();
-        }
+</section>
 
-        function revealVideo(el) {
-            music.pause(); 
-            el.classList.add("reveal");
-            let text = el.querySelector("span");
-            if (text) text.remove();
-            let vid = el.querySelector("video");
-            vid.muted = false; 
-            vid.controls = true;
-            vid.play();
-        }
+<section id="main" class="hidden">
 
-        video.onended = function() {
-            music.play();
-        };
+<div class="glass">
 
-        function giveRating(n) {
-            // 1. Matikan musik latar & video (jika sedang jalan)
-            music.pause();
-            video.pause();
-            
-            // 2. Mainkan suara "Makasih" kamu
-            voiceNote.play();
-            
-            // 3. Visual Bintang
-            let stars = document.querySelectorAll(".star");
-            stars.forEach((s, index) => {
-                if(index < n) s.classList.add("active");
-                else s.classList.remove("active");
-            });
+<h1>Happy Birthday🥳🎉</h1>
+<h1>Princess Nanayy</h1>
+<h1>AKA Nayla Rahma Diana</h1>
+<h1>AKA Kaguya Shaynala</h1>
+<br>
 
-            document.getElementById("ratingText").innerText = "Yeayy, makasih rating " + n + "/5 nya! ✨";
-            createConfetti();
-        }
+<button onclick="playMusic()">🎵 Putar Lagu</button>
 
-        function createConfetti() {
-            for (let i = 0; i < 35; i++) {
-                let confetti = document.createElement("div");
-                confetti.innerHTML = "💚";
-                confetti.style.position = "fixed";
-                confetti.style.left = Math.random() * 100 + "vw";
-                confetti.style.top = "-10px";
-                confetti.style.fontSize = "20px";
-                confetti.style.animation = "fall 3s linear forwards";
-                document.body.appendChild(confetti);
-                setTimeout(() => confetti.remove(), 3000);
-            }
-        }
+<audio id="music" src="bestparpart.m4a" loop></audio>
+<audio id="voiceNote" src="makasih.m4a"></audio>
 
-        setInterval(() => {
-            let heart = document.createElement("div");
-            heart.className = "heart";
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.innerHTML = (Math.random() > 0.5) ? "🩷" : "💚";
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 7000);
-        }, 1500);
-    </script>
+<div id="lyricsContainer"></div>
+
+<br><br>
+<p>
+
+Sebelum nya aku mau ucapin..
+Selamat ulang tahun yaa cantikk, semoga di tahun ini jadi tahun yang sukses buat kamu,semoga kamu di sehatkan selalu,panjang umurnya,dilancarkan rezeki nya,makin cantik,pinter,sholehah  
+Semoga lolos masuk ui,dan apa yang kamu cita2 kan tercapai, AAMIIN.
+
+</p>
+  
+
+<div class="gallery">
+
+<div class="photo" onclick="revealPhoto(this)">
+<img src="foto1.jpg">
+<span>klik fotonya 💗</span>
+<p>inget ga ini fotbar pertama kitaa</p>
+</div>
+
+<div class="photo" onclick="revealPhoto(this)">
+<img src="foto2.jpg">
+<span>klik fotonya 💗</span>
+<p>my favorite picture of us</p>
+</div>
+
+<div class="photo" onclick="revealPhoto(this)">
+<img src="foto3.jpg">
+<span>klik fotonya 💗</span>
+<p>my favorite picture of u🫰🏻</p>
+</div>
+
+</div>
+<br><br>
+
+<div class="gallery">
+
+<div class="photo" onclick="revealVideo(this)">
+<video id="myVideo" width="240" muted playsinline>
+<source src="video1.mp4" type="video/mp4">
+</video>
+<span>klik videonya 💗</span>
+<p>ini lucu 🤏🏻 jadi aku masukin sini,sebenernya pengen di up ke tiktok juga bolee gaa 👉🏻👈🏻</p>
+</div>
+
+</div>
+  <p> maaf ya aku ga bisa kasih banyak buat kamu but i hope all of this can make u happy paipaii👋🏻</p>
+<h2>
+
+Thanks for coming into my life, i will always wish you all the best 💗  
+
+</h2>
+
+<div class="rating-area">
+  <p id="ratingText">kasih rating dongss 🥺👉🏻👈🏻</p>
+  <div class="stars">
+    <span class="star" onclick="giveRating(1)">⭐</span>
+    <span class="star" onclick="giveRating(2)">⭐</span>
+    <span class="star" onclick="giveRating(3)">⭐</span>
+    <span class="star" onclick="giveRating(4)">⭐</span>
+    <span class="star" onclick="giveRating(5)">⭐</span>
+  </div>
+</div>
+
+</div>
+
+</section>
+
+<script>
+
+let music=document.getElementById("music")
+let voiceNote=document.getElementById("voiceNote")
+let myVideo=document.getElementById("myVideo")
+
+function startSurprise(){
+
+document.getElementById("intro").classList.add("hidden")
+document.getElementById("main").classList.remove("hidden")
+
+createConfetti()
+
+}
+
+function playMusic(){
+
+music.volume=0
+music.play()
+
+let fade=setInterval(()=>{
+
+if(music.volume<1){
+
+music.volume+=0.05
+
+}else{
+
+clearInterval(fade)
+
+}
+
+},300)
+
+showLyrics()
+
+}
+
+function showLyrics(){
+
+let lines=[
+
+"Awalnya aku mau bikin lagu buat kamu",
+"Ternyata bikin lagu itu susah😭 dan waktunya juga mepet",
+"intinya Semoga kamu selalu bahagia, you always be my favorite girl🫰🏻."
+
+]
+
+let container=document.getElementById("lyricsContainer")
+
+lines.forEach((line,index)=>{
+
+setTimeout(()=>{
+
+let p=document.createElement("p")
+
+p.innerText=line
+
+p.style.opacity="0"
+
+p.style.transition="opacity 2s"
+
+container.appendChild(p)
+
+setTimeout(()=>{
+
+p.style.opacity="1"
+
+},200)
+
+},index*3000)
+
+})
+
+}
+
+function createConfetti(){
+
+for(let i=0;i<35;i++){
+
+let confetti=document.createElement("div")
+
+confetti.innerHTML="💚"
+
+confetti.style.position="fixed"
+
+confetti.style.left=Math.random()*100+"vw"
+
+confetti.style.top="-10px"
+
+confetti.style.fontSize="20px"
+
+confetti.style.animation="fall 3s linear forwards"
+
+document.body.appendChild(confetti)
+
+setTimeout(()=>confetti.remove(),3000)
+
+}
+
+}
+
+/* floating hearts */
+
+setInterval(()=>{
+
+let heart=document.createElement("div")
+
+heart.className="heart"
+
+heart.style.left=Math.random()*100+"vw"
+
+heart.innerHTML="🩷"
+
+document.body.appendChild(heart)
+
+setTimeout(()=>heart.remove(),7000)
+
+},1500)
+  setInterval(()=>{
+
+let heart=document.createElement("div")
+
+heart.className="heart"
+
+heart.style.left=Math.random()*100+"vw"
+
+heart.innerHTML="💚"
+
+document.body.appendChild(heart)
+
+setTimeout(()=>heart.remove(),7000)
+
+},1500)
+function revealPhoto(el){
+
+el.classList.add("reveal")
+
+let text = el.querySelector("span")
+
+if(text) text.remove()
+
+}
+
+function revealVideo(el){
+music.pause()
+el.classList.add("reveal")
+
+let text = el.querySelector("span")
+if(text) text.remove()
+
+let vid = el.querySelector("video")
+vid.muted = false
+vid.controls = true
+vid.play()
+
+// Musik nyala lagi kalau video selesai
+vid.onended = function(){
+  music.play()
+}
+}
+
+// Fungsi Rating Baru
+function giveRating(n) {
+  music.pause()
+  myVideo.pause()
+  voiceNote.play()
+  
+  let stars = document.querySelectorAll(".star")
+  stars.forEach((s, index) => {
+    if(index < n) s.classList.add("active")
+    else s.classList.remove("active")
+  })
+  
+  document.getElementById("ratingText").innerText = "Makasih ratingnya Nayy! ✨"
+  createConfetti()
+}
+
+</script>
+
 </body>
 </html>
