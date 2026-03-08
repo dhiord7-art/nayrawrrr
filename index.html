@@ -103,6 +103,26 @@
         .photo p { opacity: 0; transition: 0.6s; margin-top: 8px; }
         .photo.reveal p { opacity: 1; }
 
+        .rating-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed #7fb77e;
+        }
+        .stars {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+            font-size: 30px;
+        }
+        .star {
+            cursor: pointer;
+            transition: transform 0.2s;
+            filter: grayscale(1);
+        }
+        .star:hover { transform: scale(1.2); }
+        .star.active { filter: grayscale(0); }
+
         .heart {
             position: fixed;
             bottom: -20px;
@@ -139,6 +159,8 @@
             <br>
             <button onclick="playMusic()">🎵 Putar Lagu</button>
             <audio id="music" src="bestparpart.m4a" loop></audio>
+            <audio id="voiceNote" src="makasih.m4a"></audio>
+            
             <div id="lyricsContainer"></div>
             <br>
             <p>Sebelum nya aku mau ucapin.. Selamat ulang tahun yaa cantikk, semoga di tahun ini jadi tahun yang sukses buat kamu, semoga kamu di sehatkan selalu, panjang umurnya, dilancarkan rezeki nya, makin cantik, pinter, sholehah. Semoga lolos masuk UI, dan apa yang kamu cita-citakan tercapai, AAMIIN.</p>
@@ -174,12 +196,25 @@
 
             <p>maaf ya aku ga bisa kasih banyak buat kamu but i hope all of this can make u happy paipaii👋🏻</p>
             <h2>Thanks for coming into my life, i will always wish you all the best 💗</h2>
+
+            <div class="rating-section">
+                <p id="ratingText">kasih rating dongss 🥺👉🏻👈🏻</p>
+                <div class="stars">
+                    <span class="star" onclick="giveRating(1)">⭐</span>
+                    <span class="star" onclick="giveRating(2)">⭐</span>
+                    <span class="star" onclick="giveRating(3)">⭐</span>
+                    <span class="star" onclick="giveRating(4)">⭐</span>
+                    <span class="star" onclick="giveRating(5)">⭐</span>
+                </div>
+            </div>
+
         </div>
     </section>
 
     <script>
         let music = document.getElementById("music");
         let video = document.getElementById("myVideo");
+        let voiceNote = document.getElementById("voiceNote");
 
         function startSurprise() {
             document.getElementById("intro").classList.add("hidden");
@@ -221,23 +256,38 @@
         }
 
         function revealVideo(el) {
-            // Berhentikan musik
             music.pause(); 
-            
             el.classList.add("reveal");
             let text = el.querySelector("span");
             if (text) text.remove();
-
             let vid = el.querySelector("video");
             vid.muted = false; 
             vid.controls = true;
             vid.play();
         }
 
-        // FUNGSI KHUSUS: Musik nyala lagi saat video selesai
         video.onended = function() {
             music.play();
         };
+
+        function giveRating(n) {
+            // 1. Matikan musik latar & video (jika sedang jalan)
+            music.pause();
+            video.pause();
+            
+            // 2. Mainkan suara "Makasih" kamu
+            voiceNote.play();
+            
+            // 3. Visual Bintang
+            let stars = document.querySelectorAll(".star");
+            stars.forEach((s, index) => {
+                if(index < n) s.classList.add("active");
+                else s.classList.remove("active");
+            });
+
+            document.getElementById("ratingText").innerText = "Yeayy, makasih rating " + n + "/5 nya! ✨";
+            createConfetti();
+        }
 
         function createConfetti() {
             for (let i = 0; i < 35; i++) {
@@ -261,16 +311,6 @@
             document.body.appendChild(heart);
             setTimeout(() => heart.remove(), 7000);
         }, 1500);
-        // Function untuk mendeteksi apakah pengguna keluar dari browser/pindah aplikasi
-document.addEventListener("visibilitychange", function() {
-    if (document.hidden) {
-        // Jika web tidak terlihat (keluar aplikasi/pindah tab), pause musik
-        music.pause();
-    } else {
-        // Opsi tambahan: Jika balik lagi ke web, musik lanjut lagi (hapus jika tidak mau)
-        // music.play(); 
-    }
-});
     </script>
 </body>
 </html>
