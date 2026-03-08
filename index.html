@@ -455,6 +455,9 @@ vid.muted = false
 vid.controls = true
 vid.play()
 
+vid.onended = function()
+  music.play()
+  music.controls = false
 }
 </script>
 
