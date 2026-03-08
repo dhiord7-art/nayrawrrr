@@ -261,6 +261,16 @@
             document.body.appendChild(heart);
             setTimeout(() => heart.remove(), 7000);
         }, 1500);
+        // Function untuk mendeteksi apakah pengguna keluar dari browser/pindah aplikasi
+document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+        // Jika web tidak terlihat (keluar aplikasi/pindah tab), pause musik
+        music.pause();
+    } else {
+        // Opsi tambahan: Jika balik lagi ke web, musik lanjut lagi (hapus jika tidak mau)
+        // music.play(); 
+    }
+});
     </script>
 </body>
 </html>
