@@ -195,14 +195,14 @@ transition:.6s;
 filter:blur(0);
 }
 
-/* STYLE KOLASE LOVE CENTER FIX */
+/* --- STYLE KOLASE LOVE (CENTER & PADAT) --- */
 #giftSection {
     margin-top: 40px;
 }
 
 #loveCollage { 
     position: relative; 
-    width: 300px; /* Lebar container diperketat */
+    width: 280px; /* Dipersempit agar makin rapat */
     height: 380px; 
     margin: 40px auto; 
     display: none;
@@ -212,21 +212,20 @@ filter:blur(0);
 
 .collage-img {
     position: absolute; 
-    width: 50px; /* Ukuran foto seragam agar pas */
-    height: 50px; 
-    border-radius: 8px; 
+    width: 60px; /* Ukuran diperbesar sedikit agar overlap */
+    height: 60px; 
+    border-radius: 4px; 
     object-fit: cover; 
-    border: 2px solid white; 
+    border: 1.5px solid white; 
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     opacity: 0; 
     transform: scale(0); 
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 5;
 }
 
-.collage-img.show { 
-    opacity: 1; 
-    transform: scale(1); 
-}
+.collage-img:hover { z-index: 10; transform: scale(1.1); }
+.collage-img.show { opacity: 1; transform: scale(1); }
 
 /* RATING STYLE */
 .rating-area { 
@@ -352,33 +351,35 @@ Thanks for coming into my life, i will always wish you all the best 💗
 <div id="giftSection">
     <button id="btnGift" onclick="showGift()">Gift For You! 🎁</button>
     <div id="loveCollage">
-        <img src="k1.JPG" class="collage-img" style="top:10px; left:65px;">
-        <img src="k3.JPG" class="collage-img" style="top:25px; left:20px;">
-        <img src="k6.jpg" class="collage-img" style="top:75px; left:0px;">
-
-        <img src="k2.JPG" class="collage-img" style="top:10px; left:185px;">
-        <img src="k5.JPG" class="collage-img" style="top:25px; left:230px;">
-        <img src="k9.JPG" class="collage-img" style="top:75px; left:250px;">
-
-        <img src="k7.jpg" class="collage-img" style="top:75px; left:80px;">
-        <img src="k8.jpg" class="collage-img" style="top:75px; left:170px;">
-        <img src="k4.jpg" class="collage-img" style="top:125px; left:40px;">
-        <img src="k11.JPG" class="collage-img" style="top:125px; left:125px;">
-        <img src="k12.JPG" class="collage-img" style="top:125px; left:210px;">
-        <img src="k10.jpg" class="collage-img" style="top:175px; left:15px;">
-        <img src="k13.JPG" class="collage-img" style="top:175px; left:85px;">
-        <img src="k14.JPG" class="collage-img" style="top:175px; left:165px;">
-        <img src="k15.JPG" class="collage-img" style="top:175px; left:235px;">
-
-        <img src="k16.JPG" class="collage-img" style="top:230px; left:50px;">
-        <img src="k17.jpg" class="collage-img" style="top:230px; left:125px;">
-        <img src="k19.JPG" class="collage-img" style="top:230px; left:200px;">
-        <img src="k20.JPG" class="collage-img" style="top:285px; left:85px;">
-        <img src="k21.JPG" class="collage-img" style="top:285px; left:165px;">
-        <img src="k22.jpg" class="collage-img" style="top:335px; left:125px;">
+        <img src="k1.JPG" class="collage-img" style="top:10px; left:60px;">
+        <img src="k2.JPG" class="collage-img" style="top:10px; left:160px;">
         
-        <img src="k23.jpg" class="collage-img" style="top:125px; left:265px;">
-        <img src="k18.KPG" class="collage-img" style="top:125px; left:-15px;">
+        <img src="k3.JPG" class="collage-img" style="top:35px; left:15px;">
+        <img src="k4.jpg" class="collage-img" style="top:40px; left:105px; width:70px; height:70px; z-index:6;"> <img src="k5.JPG" class="collage-img" style="top:35px; left:205px;">
+        
+        <img src="k6.jpg" class="collage-img" style="top:85px; left:-5px;">
+        <img src="k7.jpg" class="collage-img" style="top:85px; left:55px;">
+        <img src="k8.jpg" class="collage-img" style="top:85px; left:165px;">
+        <img src="k9.JPG" class="collage-img" style="top:85px; left:225px;">
+        
+        <img src="k10.jpg" class="collage-img" style="top:135px; left:20px;">
+        <img src="k11.JPG" class="collage-img" style="top:140px; left:85px;">
+        <img src="k12.JPG" class="collage-img" style="top:140px; left:145px;">
+        <img src="k13.JPG" class="collage-img" style="top:135px; left:210px;">
+        
+        <img src="k14.JPG" class="collage-img" style="top:190px; left:50px;">
+        <img src="k15.JPG" class="collage-img" style="top:195px; left:110px;">
+        <img src="k16.JPG" class="collage-img" style="top:190px; left:170px;">
+        
+        <img src="k17.jpg" class="collage-img" style="top:245px; left:80px;">
+        <img src="k19.JPG" class="collage-img" style="top:245px; left:140px;">
+        
+        <img src="k20.JPG" class="collage-img" style="top:290px; left:110px;">
+
+        <img src="k21.JPG" class="collage-img" style="top:60px; left:170px;">
+        <img src="k22.jpg" class="collage-img" style="top:60px; left:50px;">
+        <img src="k23.jpg" class="collage-img" style="top:110px; left:110px;">
+        <img src="k18.KPG" class="collage-img" style="top:180px; left:15px;">
     </div>
 </div>
 
@@ -453,7 +454,6 @@ vid.play()
 vid.onended = function(){ music.play(); }
 }
 
-// FUNGSI KOLASE LOVE
 function showGift() {
     document.getElementById("btnGift").style.display = "none";
     let collage = document.getElementById("loveCollage");
@@ -474,7 +474,6 @@ function showGift() {
     });
 }
 
-// FUNGSI RATING SUARA BEDA
 function giveRating(n) {
   music.pause();
   myVideo.pause();
