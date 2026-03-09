@@ -17,6 +17,7 @@ text-align:center;
 color:#5f8f6f;
 }
 
+/* floating blur background */
 .blur{
 position:fixed;
 width:350px;
@@ -77,6 +78,7 @@ box-shadow:0 10px 20px rgba(0,0,0,.15);
 transition:.3s;
 }
 
+/* floating hearts */
 .heart{
 position:fixed;
 bottom:-20px;
@@ -88,7 +90,20 @@ z-index: 1;
 
 @keyframes rise{ 0%{transform:translateY(0);opacity:1;} 100%{transform:translateY(-900px);opacity:0;} }
 
-@keyframes fall{ to{ transform:translateY(110vh); opacity: 0; } }
+/* confetti effect */
+@keyframes fallConfetti{ 
+    0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } 
+}
+
+.confetti {
+    position: fixed;
+    z-index: 9999;
+    top: -20px;
+    font-size: 25px;
+    pointer-events: none;
+    animation: fallConfetti 3s linear forwards;
+}
 
 .photo{ position:relative; display:inline-block; cursor:pointer; }
 .photo img{ filter:blur(12px); transition:0.6s; }
@@ -104,12 +119,10 @@ background:rgba(0,0,0,.45); color:white; padding:8px 14px; border-radius:20px; f
 .photo.reveal video{ filter:blur(0); }
 
 /* --- STYLE KOLASE LOVE (RAPI & BERJARAK) --- */
-#giftSection { margin-top: 40px; }
-
 #loveCollage { 
     position: relative; 
-    width: 320px; /* Diperlebar sedikit agar ada jarak */
-    height: 400px; 
+    width: 320px; 
+    height: 380px; 
     margin: 40px auto; 
     display: none;
     left: 50%;
@@ -118,15 +131,15 @@ background:rgba(0,0,0,.45); color:white; padding:8px 14px; border-radius:20px; f
 
 .collage-img {
     position: absolute; 
-    width: 55px; 
-    height: 55px; 
+    width: 58px; 
+    height: 58px; 
     border-radius: 8px; 
     object-fit: cover; 
     border: 2px solid white; 
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     opacity: 0; 
     transform: scale(0); 
-    transition: all 0.4s ease;
+    transition: all 0.4s ease-out;
     z-index: 5;
 }
 
@@ -137,15 +150,6 @@ background:rgba(0,0,0,.45); color:white; padding:8px 14px; border-radius:20px; f
 .stars { font-size: 35px; cursor: pointer; display: flex; justify-content: center; gap: 10px; margin-top: 10px; }
 .star { filter: grayscale(1); transition: 0.3s; }
 .star.active { filter: grayscale(0); transform: scale(1.2); }
-
-.confetti {
-    position: fixed;
-    z-index: 9999;
-    top: -20px;
-    font-size: 25px;
-    pointer-events: none;
-    animation: fall 3s linear forwards;
-}
 </style>
 </head>
 
@@ -190,7 +194,8 @@ dan orang itu… adalah kamu.
   
 <div class="gallery">
 <div class="photo" onclick="revealPhoto(this)"><img src="foto1.jpg"><span>klik fotonya 💗</span><p>fotbar pertama kitaa</p></div>
-<div class="photo" onclick="revealPhoto(this)"><img src="foto2.jpg"><span>klik fotonya 💗</span><p>my favorite picture of us</p></div>
+<div class="photo" onclick="revealPhoto(this)"><img src="foto2.jpg"><span>klik fotonya 💗</span><p>favorite picture us</p></div>
+<div class="photo" onclick="revealPhoto(this)"><img src="foto3.jpg"><span>klik fotonya 💗</span><p>favorite picture u🫰🏻</p></div>
 </div>
 
 <div class="gallery">
@@ -200,33 +205,37 @@ dan orang itu… adalah kamu.
 <h2>Thanks for coming into my life 💗</h2>
 
 <div id="giftSection">
-    <button id="btnGift" onclick="showGift()">Open</button>
+    <button id="btnGift" onclick="showGift()">Gift For You! 🎁</button>
     <div id="loveCollage">
         <img src="k1.JPG" class="collage-img" style="top:10px; left:80px;">
-        <img src="k2.JPG" class="collage-img" style="top:10px; left:180px;">
+        <img src="k2.JPG" class="collage-img" style="top:10px; left:185px;">
         
-        <img src="k3.JPG" class="collage-img" style="top:50px; left:25px;">
-        <img src="k4.jpg" class="collage-img" style="top:50px; left:130px;">
-        <img src="k5.JPG" class="collage-img" style="top:50px; left:235px;">
+        <img src="k3.JPG" class="collage-img" style="top:55px; left:25px;">
+        <img src="k4.jpg" class="collage-img" style="top:55px; left:132px;">
+        <img src="k5.JPG" class="collage-img" style="top:55px; left:240px;">
         
-        <img src="k6.jpg" class="collage-img" style="top:110px; left:0px;">
+        <img src="k6.jpg" class="collage-img" style="top:110px; left:-5px;">
         <img src="k7.jpg" class="collage-img" style="top:110px; left:65px;">
-        <img src="k8.jpg" class="collage-img" style="top:110px; left:195px;">
-        <img src="k9.JPG" class="collage-img" style="top:110px; left:260px;">
+        <img src="k8.jpg" class="collage-img" style="top:110px; left:200px;">
+        <img src="k9.JPG" class="collage-img" style="top:110px; left:270px;">
         
-        <img src="k10.jpg" class="collage-img" style="top:170px; left:25px;">
-        <img src="k11.JPG" class="collage-img" style="top:170px; left:130px;">
-        <img src="k12.JPG" class="collage-img" style="top:170px; left:235px;">
+        <img src="k10.jpg" class="collage-img" style="top:165px; left:25px;">
+        <img src="k11.JPG" class="collage-img" style="top:165px; left:132px;">
+        <img src="k12.JPG" class="collage-img" style="top:165px; left:240px;">
         
-        <img src="k13.JPG" class="collage-img" style="top:230px; left:80px;">
-        <img src="k14.JPG" class="collage-img" style="top:230px; left:180px;">
+        <img src="k13.JPG" class="collage-img" style="top:220px; left:75px;">
+        <img src="k14.JPG" class="collage-img" style="top:220px; left:190px;">
         
-        <img src="k15.JPG" class="collage-img" style="top:290px; left:130px;">
+        <img src="k15.JPG" class="collage-img" style="top:275px; left:132px;">
         
-        <img src="k16.JPG" class="collage-img" style="top:80px; left:130px;">
-        <img src="k17.jpg" class="collage-img" style="top:140px; left:80px;">
-        <img src="k19.JPG" class="collage-img" style="top:140px; left:180px;">
-        <img src="k20.JPG" class="collage-img" style="top:200px; left:130px;">
+        <img src="k16.JPG" class="collage-img" style="top:80px; left:80px;">
+        <img src="k17.jpg" class="collage-img" style="top:80px; left:185px;">
+        <img src="k19.JPG" class="collage-img" style="top:135px; left:132px;">
+        <img src="k20.JPG" class="collage-img" style="top:190px; left:132px;">
+        <img src="k21.JPG" class="collage-img" style="top:135px; left:65px;">
+        <img src="k22.jpg" class="collage-img" style="top:135px; left:200px;">
+        <img src="k23.jpg" class="collage-img" style="top:190px; left:75px;">
+        <img src="k18.KPG" class="collage-img" style="top:190px; left:190px;">
     </div>
 </div>
 
@@ -257,12 +266,25 @@ function startSurprise(){
 function playMusic(){
     music.volume = 0; music.play();
     let fade = setInterval(()=>{ if(music.volume < 1){ music.volume += 0.05; } else { clearInterval(fade); } },300);
+    showLyrics();
+}
+
+function showLyrics(){
+    let lines = ["Awalnya aku mau bikin lagu buat kamu", "Ternyata bikin lagu itu susah😭", "Semoga kamu bahagia, you are my favorite girl🫰🏻."];
+    let container = document.getElementById("lyricsContainer");
+    lines.forEach((line,index)=>{
+        setTimeout(()=>{
+            let p = document.createElement("p"); p.innerText = line; p.style.opacity = "0"; p.style.transition = "opacity 2s";
+            container.appendChild(p); setTimeout(()=>{ p.style.opacity = "1"; },200)
+        }, index * 3000);
+    });
 }
 
 function revealPhoto(el){ el.classList.add("reveal"); let text = el.querySelector("span"); if(text) text.remove(); }
 function revealVideo(el){ 
     music.pause(); el.classList.add("reveal"); let text = el.querySelector("span"); if(text) text.remove();
     let vid = el.querySelector("video"); vid.muted = false; vid.controls = true; vid.play();
+    vid.onended = function(){ music.play(); }
 }
 
 function showGift() {
@@ -276,16 +298,16 @@ function showGift() {
             img.classList.add("show");
             if(i === imgs.length - 1) {
                 document.getElementById("surpriseSound").play();
-                createConfetti(); // CONFETTI 1: Pas klik gift/selesai muncul foto
+                createConfetti(); // Confetti pas klik gift selesai
                 setTimeout(() => { document.getElementById("finalRating").classList.remove("hidden"); }, 1000);
             }
-        }, i * 200);
+        }, i * 180);
     });
 }
 
 function giveRating(n) {
     for(let i=1; i<=5; i++){ let v = document.getElementById("v"+i); v.pause(); v.currentTime = 0; }
-    document.getElementById("v"+n).play();
+    let voice = document.getElementById("v" + n); if(voice) voice.play();
     
     let stars = document.querySelectorAll(".star");
     stars.forEach((s, index) => {
@@ -293,16 +315,19 @@ function giveRating(n) {
         else s.classList.remove("active");
     });
     
-    createConfetti(); // CONFETTI 2: Pas kasih rating
+    let res = ["Yah pelit banget.. 🥺", "Makasih ya ratingnya.. 😅", "Boleh lah tiga bintang! ✨", "Makasih banyak Nayy! 💗", "Sayang banget ya? Makasih bintang limanya! 🤭"];
+    document.getElementById("ratingText").innerText = res[n-1];
+    
+    createConfetti(); // Confetti pas rating diklik
 }
 
 function createConfetti() {
     for (let i = 0; i < 40; i++) {
         const confetti = document.createElement('div');
-        confetti.innerText = ['💚', '🎉', '✨', '🩷'][Math.floor(Math.random() * 4)];
+        confetti.innerText = ['💚', '🎉', '✨', '🩷', '🌸'][Math.floor(Math.random() * 5)];
         confetti.className = 'confetti';
         confetti.style.left = Math.random() * 100 + 'vw';
-        confetti.style.animationDelay = Math.random() * 2 + 's';
+        confetti.style.animationDelay = Math.random() * 1.5 + 's';
         confetti.style.fontSize = (Math.random() * 20 + 15) + 'px';
         document.body.appendChild(confetti);
         setTimeout(() => confetti.remove(), 4000);
@@ -310,8 +335,7 @@ function createConfetti() {
 }
 
 setInterval(()=>{
-    let heart = document.createElement("div");
-    heart.className = "heart";
+    let heart = document.createElement("div"); heart.className = "heart";
     heart.style.left = Math.random()*100+"vw";
     heart.innerHTML = (Math.random() > 0.5) ? "🩷" : "💚";
     document.body.appendChild(heart);
