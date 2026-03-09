@@ -29,13 +29,30 @@ animation:float 12s infinite alternate ease-in-out;
 z-index: 1;
 }
 
-.blur1{ background:#b7e4c7; top:-100px; left:-100px; }
-.blur2{ background:#d8f3dc; bottom:-100px; right:-100px; }
+.blur1{
+background:#b7e4c7;
+top:-100px;
+left:-100px;
+}
 
-@keyframes float{ from{transform:translateY(0)} to{transform:translateY(40px)} }
+.blur2{
+background:#d8f3dc;
+bottom:-100px;
+right:-100px;
+}
 
-section{ padding:100px 20px; position:relative; z-index:2; }
+@keyframes float{
+from{transform:translateY(0)}
+to{transform:translateY(40px)}
+}
 
+section{
+padding:100px 20px;
+position:relative;
+z-index:2;
+}
+
+/* glass card */
 .glass{
 background:rgba(255,255,255,.35);
 backdrop-filter:blur(20px);
@@ -46,7 +63,9 @@ margin:auto;
 box-shadow:0 15px 40px rgba(0,0,0,.08);
 }
 
-.hidden{ display:none; }
+.hidden{
+display:none;
+}
 
 button{
 background:#7fb77e;
@@ -60,14 +79,31 @@ transition:.3s;
 margin: 10px;
 }
 
-button:hover{ transform:scale(1.07); }
+button:hover{
+transform:scale(1.07);
+}
 
-h1{ font-size:36px; opacity:0; transform:translateY(20px); animation:fadeUp 2s forwards; }
-h1:nth-child(2){ animation-delay:.5s; }
+h1{
+font-size:36px;
+opacity:0;
+transform:translateY(20px);
+animation:fadeUp 2s forwards;
+}
 
-@keyframes fadeUp{ to{ opacity:1; transform:translateY(0); } }
+h1:nth-child(2){
+animation-delay:.5s;
+}
 
-p{ line-height:1.8; }
+@keyframes fadeUp{
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+p{
+line-height:1.8;
+}
 
 .gallery img{
 width:80%;
@@ -76,6 +112,10 @@ border-radius:18px;
 margin:12px;
 box-shadow:0 10px 20px rgba(0,0,0,.15);
 transition:.3s;
+}
+
+.gallery img:hover{
+transform:scale(1.05);
 }
 
 /* floating hearts */
@@ -88,12 +128,130 @@ animation:rise 7s linear infinite;
 z-index: 1;
 }
 
-@keyframes rise{ 0%{transform:translateY(0);opacity:1;} 100%{transform:translateY(-900px);opacity:0;} }
+@keyframes rise{
+0%{
+transform:translateY(0);
+opacity:1;
+}
+100%{
+transform:translateY(-900px);
+opacity:0;
+}
+}
 
-/* confetti effect */
-@keyframes fall{ 
-    0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } 
+@keyframes fall{
+to{
+transform:translateY(110vh);
+opacity: 0;
+}
+}
+
+.photo{
+position:relative;
+display:inline-block;
+cursor:pointer;
+}
+
+.photo img{
+filter:blur(12px);
+transition:0.6s;
+}
+
+.photo span{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:rgba(0,0,0,.45);
+color:white;
+padding:8px 14px;
+border-radius:20px;
+font-size:14px;
+z-index: 10;
+}
+
+.photo.reveal img{
+filter:blur(0);
+}
+
+.photo p{
+opacity:0;
+transition:0.6s;
+margin-top:8px;
+}
+
+.photo.reveal p{
+opacity:1;
+}
+
+.photo video{
+width:80%;
+max-width:240px;
+border-radius:18px;
+filter:blur(12px);
+transition:.6s;
+}
+
+.photo.reveal video{
+filter:blur(0);
+}
+
+/* --- STYLE KOLASE LOVE (CENTER & PADAT) --- */
+#giftSection {
+    margin-top: 40px;
+}
+
+#loveCollage { 
+    position: relative; 
+    width: 280px; 
+    height: 350px; 
+    margin: 40px auto; 
+    display: none;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.collage-img {
+    position: absolute; 
+    width: 65px; /* Sedikit lebih besar agar makin padat */
+    height: 65px; 
+    border-radius: 4px; 
+    object-fit: cover; 
+    border: 1.5px solid white; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    opacity: 0; 
+    transform: scale(0); 
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 5;
+}
+
+.collage-img:hover { z-index: 10; transform: scale(1.1); }
+.collage-img.show { opacity: 1; transform: scale(1); }
+
+/* RATING STYLE */
+.rating-area { 
+    margin-top: 30px; 
+    border-top: 1px dashed #7fb77e; 
+    padding-top: 20px; 
+}
+
+.stars { 
+    font-size: 35px; 
+    cursor: pointer; 
+    display: flex; 
+    justify-content: center; 
+    gap: 10px; 
+    margin-top: 10px; 
+}
+
+.star { 
+    filter: grayscale(1); 
+    transition: 0.3s; 
+}
+
+.star.active { 
+    filter: grayscale(0); 
+    transform: scale(1.2); 
 }
 
 .confetti {
@@ -104,54 +262,6 @@ z-index: 1;
     pointer-events: none;
     animation: fall 3s linear forwards;
 }
-
-.photo{ position:relative; display:inline-block; cursor:pointer; }
-.photo img{ filter:blur(12px); transition:0.6s; }
-.photo span{
-position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-background:rgba(0,0,0,.45); color:white; padding:8px 14px; border-radius:20px; font-size:14px; z-index: 10;
-}
-.photo.reveal img{ filter:blur(0); }
-.photo p{ opacity:0; transition:0.6s; margin-top:8px; }
-.photo.reveal p{ opacity:1; }
-
-.photo video{ width:80%; max-width:240px; border-radius:18px; filter:blur(12px); transition:.6s; }
-.photo.reveal video{ filter:blur(0); }
-
-/* --- STYLE KOLASE LOVE (RAPI & BERJARAK) --- */
-#giftSection { margin-top: 40px; }
-
-#loveCollage { 
-    position: relative; 
-    width: 340px; /* Diperlebar agar tidak sesak */
-    height: 420px; 
-    margin: 40px auto; 
-    display: none;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.collage-img {
-    position: absolute; 
-    width: 55px; 
-    height: 55px; 
-    border-radius: 8px; 
-    object-fit: cover; 
-    border: 2px solid white; 
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    opacity: 0; 
-    transform: scale(0); 
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: 5;
-}
-
-.collage-img.show { opacity: 1; transform: scale(1); }
-
-/* RATING STYLE */
-.rating-area { margin-top: 30px; border-top: 1px dashed #7fb77e; padding-top: 20px; }
-.stars { font-size: 35px; cursor: pointer; display: flex; justify-content: center; gap: 10px; margin-top: 10px; }
-.star { filter: grayscale(1); transition: 0.3s; }
-.star.active { filter: grayscale(0); transform: scale(1.2); }
 </style>
 </head>
 
@@ -165,11 +275,21 @@ background:rgba(0,0,0,.45); color:white; padding:8px 14px; border-radius:20px; f
 <p>
 di antara banyaknya hari<br>
 yang datang dan pergi,<br><br>
-ada satu hari yang selalu terasa sedikit lebih istimewa.<br><br>
-bukan karena langitnya berbeda, atau mataharinya lebih terang.<br><br>
-tapi karena di hari ini, seseorang yang istimewa pernah lahir ke dunia.<br><br>
-dan orang itu… adalah kamu.
+
+ada satu hari<br>
+yang selalu terasa sedikit lebih istimewa.<br><br>
+
+bukan karena langitnya berbeda,<br>
+atau mataharinya lebih terang.<br><br>
+
+tapi karena di hari ini,<br>
+seseorang yang istimewa<br>
+pernah lahir ke dunia.<br><br>
+
+dan orang itu…<br>
+adalah kamu.
 </p>
+<br>
 <button onclick="startSurprise()">klik ini yaa 💗</button>
 </div>
 </section>
@@ -180,11 +300,13 @@ dan orang itu… adalah kamu.
 <h1>Happy Birthday🥳🎉</h1>
 <h1>Princess Nanayy</h1>
 <h1>AKA Nayla Rahma Diana</h1>
+<h1>AKA Kaguya Shaynala</h1>
 <br>
 
 <button onclick="playMusic()">🎵 Putar Lagu</button>
 
 <audio id="music" src="bestparpart.m4a" loop></audio>
+
 <audio id="surpriseSound" src="surprise.mp3"></audio>
 <audio id="v1" src="bintang1.m4a"></audio>
 <audio id="v2" src="bintang2.m4a"></audio>
@@ -196,53 +318,76 @@ dan orang itu… adalah kamu.
 
 <br><br>
 <p>
-Selamat ulang tahun yaa cantikk, semoga di sehatkan selalu, panjang umurnya, dilancarkan rezeki nya, makin cantik, pinter, sholehah. 
+Sebelum nya aku mau ucapin..<br>
+Selamat ulang tahun yaa cantikk, semoga di tahun ini jadi tahun yang sukses buat kamu, semoga kamu di sehatkan selalu, panjang umurnya, dilancarkan rezeki nya, makin cantik, pinter, sholehah.<br> 
 Semoga lolos masuk UI, dan apa yang kamu cita-cita kan tercapai, AAMIIN.
 </p>
   
 <div class="gallery">
-<div class="photo" onclick="revealPhoto(this)"><img src="foto1.jpg"><span>klik fotonya 💗</span><p>fotbar pertama kitaa</p></div>
-<div class="photo" onclick="revealPhoto(this)"><img src="foto2.jpg"><span>klik fotonya 💗</span><p>my favorite picture of us</p></div>
-<div class="photo" onclick="revealPhoto(this)"><img src="foto3.jpg"><span>klik fotonya 💗</span><p>my favorite picture of u🫰🏻</p></div>
+<div class="photo" onclick="revealPhoto(this)">
+<img src="foto1.jpg">
+<span>klik fotonya 💗</span>
+<p>inget ga ini fotbar pertama kitaa</p>
+</div>
+<div class="photo" onclick="revealPhoto(this)">
+<img src="foto2.jpg">
+<span>klik fotonya 💗</span>
+<p>my favorite picture of us</p>
+</div>
+<div class="photo" onclick="revealPhoto(this)">
+<img src="foto3.jpg">
+<span>klik fotonya 💗</span>
+<p>my favorite picture of u🫰🏻</p>
+</div>
 </div>
 
 <br><br>
 
 <div class="gallery">
-<div class="photo" onclick="revealVideo(this)"><video id="myVideo" width="240" muted playsinline><source src="video1.mp4" type="video/mp4"></video><span>klik videonya 💗</span><p>ini lucu 🤏🏻</p></div>
+<div class="photo" onclick="revealVideo(this)">
+<video id="myVideo" width="240" muted playsinline>
+<source src="video1.mp4" type="video/mp4">
+</video>
+<span>klik videonya 💗</span>
+<p>ini lucu 🤏🏻 jadi aku masukin sini, sebenernya pengen di up ke tiktok juga bolee gaa 👉_👈</p>
+</div>
 </div>
 
-<p>maaf ya aku ga bisa kasih banyak buat kamu but i hope all of this can make u happy paipaii👋🏻</p>
-<h2>Thanks for coming into my life 💗</h2>
+<p> maaf ya aku ga bisa kasih banyak buat kamu but i hope all of this can make u happy paipaii👋🏻</p>
+<h2>
+Thanks for coming into my life, i will always wish you all the best 💗  
+</h2>
 
 <div id="giftSection">
-    <button id="btnGift" onclick="showGift()">Open</button>
+    <button id="btnGift" onclick="showGift()">Gift For You! 🎁</button>
     <div id="loveCollage">
-        <img src="k1.JPG" class="collage-img" style="top:10px; left:85px;">
-        <img src="k2.JPG" class="collage-img" style="top:10px; left:200px;">
+        <img src="k1.JPG" class="collage-img" style="top:5px; left:65px;">
+        <img src="k3.JPG" class="collage-img" style="top:25px; left:15px;">
+        <img src="k6.jpg" class="collage-img" style="top:75px; left:0px;">
         
-        <img src="k3.JPG" class="collage-img" style="top:60px; left:30px;">
-        <img src="k4.jpg" class="collage-img" style="top:60px; left:142px;">
-        <img src="k5.JPG" class="collage-img" style="top:60px; left:255px;">
+        <img src="k2.JPG" class="collage-img" style="top:5px; left:165px;">
+        <img src="k5.JPG" class="collage-img" style="top:25px; left:215px;">
+        <img src="k9.JPG" class="collage-img" style="top:75px; left:230px;">
         
-        <img src="k6.jpg" class="collage-img" style="top:120px; left:0px;">
-        <img src="k7.jpg" class="collage-img" style="top:120px; left:70px;">
-        <img src="k21.JPG" class="collage-img" style="top:120px; left:215px;">
-        <img src="k9.JPG" class="collage-img" style="top:120px; left:285px;">
+        <img src="k4.jpg" class="collage-img" style="top:45px; left:112px; width:75px; height:75px; z-index:6;"> 
+        <img src="k7.jpg" class="collage-img" style="top:85px; left:60px;">
+        <img src="k8.jpg" class="collage-img" style="top:85px; left:165px;">
+        <img src="k10.jpg" class="collage-img" style="top:135px; left:25px;">
+        <img src="k11.JPG" class="collage-img" style="top:140px; left:90px;">
+        <img src="k12.JPG" class="collage-img" style="top:140px; left:150px;">
+        <img src="k13.JPG" class="collage-img" style="top:135px; left:215px;">
         
-        <img src="k10.jpg" class="collage-img" style="top:180px; left:30px;">
-        <img src="k11.JPG" class="collage-img" style="top:180px; left:142px;">
-        <img src="k12.JPG" class="collage-img" style="top:180px; left:255px;">
-        
-        <img src="k13.JPG" class="collage-img" style="top:240px; left:85px;">
-        <img src="k14.JPG" class="collage-img" style="top:240px; left:200px;">
-        
-        <img src="k20.JPG" class="collage-img" style="top:300px; left:142px;">
+        <img src="k14.JPG" class="collage-img" style="top:190px; left:55px;">
+        <img src="k15.JPG" class="collage-img" style="top:195px; left:115px;">
+        <img src="k16.JPG" class="collage-img" style="top:190px; left:175px;">
+        <img src="k17.jpg" class="collage-img" style="top:245px; left:85px;">
+        <img src="k19.JPG" class="collage-img" style="top:245px; left:145px;">
+        <img src="k20.JPG" class="collage-img" style="top:295px; left:115px;">
 
-        <img src="k8.jpg" class="collage-img" style="top:90px; left:85px;">
-        <img src="k22.jpg" class="collage-img" style="top:90px; left:200px;">
-        <img src="k23.jpg" class="collage-img" style="top:150px; left:142px;">
-        <img src="k18.JPG" class="collage-img" style="top:210px; left:142px;">
+        <img src="k21.JPG" class="collage-img" style="top:65px; left:165px; z-index:4;">
+        <img src="k22.jpg" class="collage-img" style="top:65px; left:60px; z-index:4;">
+        <img src="k23.jpg" class="collage-img" style="top:105px; left:115px; z-index:4;">
+        <img src="k18.JPG" class="collage-img" style="top:180px; left:20px;">
     </div>
 </div>
 
@@ -265,34 +410,56 @@ let music = document.getElementById("music");
 let myVideo = document.getElementById("myVideo");
 
 function startSurprise(){
-    document.getElementById("intro").classList.add("hidden");
-    document.getElementById("main").classList.remove("hidden");
-    createConfetti(); 
+document.getElementById("intro").classList.add("hidden")
+document.getElementById("main").classList.remove("hidden")
+createConfetti()
 }
 
 function playMusic(){
-    music.volume = 0; music.play();
-    let fade = setInterval(()=>{ if(music.volume < 1){ music.volume += 0.05; } else { clearInterval(fade); } },300);
-    showLyrics();
+music.volume = 0
+music.play()
+let fade = setInterval(()=>{
+if(music.volume < 1){ music.volume += 0.05; }
+else{ clearInterval(fade); }
+},300)
+showLyrics()
 }
 
 function showLyrics(){
-    let lines = ["Awalnya aku mau bikin lagu buat kamu", "Ternyata bikin lagu itu susah😭", "Semoga kamu bahagia, you are my favorite girl🫰🏻."];
-    let container = document.getElementById("lyricsContainer");
-    lines.forEach((line,index)=>{
-        setTimeout(()=>{
-            let p = document.createElement("p"); p.innerText = line; p.style.opacity = "0"; p.style.transition = "opacity 2s";
-            container.appendChild(p); setTimeout(()=>{ p.style.opacity = "1"; },200);
-        },index*3000);
-    });
+let lines = [
+"Awalnya aku mau bikin lagu buat kamu",
+"Ternyata bikin lagu itu susah😭 dan waktunya juga mepet",
+"Semoga kamu selalu bahagia, you always be my favorite girl🫰🏻."
+]
+let container = document.getElementById("lyricsContainer")
+lines.forEach((line,index)=>{
+setTimeout(()=>{
+let p = document.createElement("p")
+p.innerText = line
+p.style.opacity = "0"
+p.style.transition = "opacity 2s"
+container.appendChild(p)
+setTimeout(()=>{ p.style.opacity = "1"; },200)
+},index*3000)
+})
 }
 
-function revealPhoto(el){ el.classList.add("reveal"); let text = el.querySelector("span"); if(text) text.remove(); }
+function revealPhoto(el){
+el.classList.add("reveal")
+let text = el.querySelector("span")
+if(text) text.remove()
+}
 
-function revealVideo(el){ 
-    music.pause(); el.classList.add("reveal"); let text = el.querySelector("span"); if(text) text.remove();
-    let vid = el.querySelector("video"); vid.muted = false; vid.controls = true; vid.play();
-    vid.onended = function(){ music.play(); };
+function revealVideo(el){
+music.pause()
+el.classList.add("reveal")
+let text = el.querySelector("span")
+if(text) text.remove()
+let vid = el.querySelector("video")
+vid.muted = false
+vid.controls = true
+vid.play()
+vid.onended = function(){ music.play(); }
 }
 
 function showGift() {
@@ -306,36 +473,43 @@ function showGift() {
             img.classList.add("show");
             if(i === imgs.length - 1) {
                 document.getElementById("surpriseSound").play();
-                createConfetti(); // CONFETTI SAAT GIFT SELESAI
-                setTimeout(() => { document.getElementById("finalRating").classList.remove("hidden"); }, 1000);
+                createConfetti();
+                setTimeout(() => {
+                    document.getElementById("finalRating").classList.remove("hidden");
+                }, 1200);
             }
-        }, i * 200);
+        }, i * 250);
     });
 }
 
 function giveRating(n) {
-    for(let i=1; i<=5; i++){ let v = document.getElementById("v"+i); v.pause(); v.currentTime = 0; }
-    let voice = document.getElementById("v" + n); if(voice) voice.play();
-    
-    let stars = document.querySelectorAll(".star");
-    stars.forEach((s, index) => {
-        if(index < n) s.classList.add("active");
-        else s.classList.remove("active");
-    });
-    
-    let res = ["Yah pelit banget.. 🥺", "Makasih ya ratingnya.. 😅", "Boleh lah tiga bintang! ✨", "Makasih banyak Nayy! 💗", "Sayang banget ya? Makasih bintang limanya! 🤭"];
-    document.getElementById("ratingText").innerText = res[n-1];
-    
-    createConfetti(); // CONFETTI SAAT RATING DIKLIK
+  music.pause();
+  myVideo.pause();
+  for(let i=1; i<=5; i++){
+    let v = document.getElementById("v"+i);
+    v.pause(); v.currentTime = 0;
+  }
+  let voice = document.getElementById("v" + n);
+  if(voice) voice.play();
+  
+  let stars = document.querySelectorAll(".star");
+  stars.forEach((s, index) => {
+    if(index < n) s.classList.add("active");
+    else s.classList.remove("active");
+  });
+  
+  let res = ["Yah pelit banget.. 🥺", "Makasih ya ratingnya.. 😅", "Boleh lah tiga bintang! ✨", "Makasih banyak Nayy! 💗", "Sayang banget ya? Makasih bintang limanya! 🤭"];
+  document.getElementById("ratingText").innerText = res[n-1];
+  createConfetti();
 }
 
 function createConfetti() {
     for (let i = 0; i < 40; i++) {
         const confetti = document.createElement('div');
-        confetti.innerText = ['💚', '🎉', '✨', '🩷', '🌸'][Math.floor(Math.random() * 5)];
+        confetti.innerText = ['💚', '🎉', '✨', '🌸', '🩷'][Math.floor(Math.random() * 5)];
         confetti.className = 'confetti';
         confetti.style.left = Math.random() * 100 + 'vw';
-        confetti.style.animationDelay = Math.random() * 1.5 + 's';
+        confetti.style.animationDelay = Math.random() * 2 + 's';
         confetti.style.fontSize = (Math.random() * 20 + 15) + 'px';
         document.body.appendChild(confetti);
         setTimeout(() => confetti.remove(), 4000);
@@ -343,12 +517,22 @@ function createConfetti() {
 }
 
 setInterval(()=>{
-    let heart = document.createElement("div"); heart.className = "heart";
-    heart.style.left = Math.random()*100+"vw";
-    heart.innerHTML = (Math.random() > 0.5) ? "🩷" : "💚";
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(), 7000);
-}, 1500);
+let heart = document.createElement("div")
+heart.className = "heart"
+heart.style.left = Math.random()*100+"vw"
+heart.innerHTML = "🩷"
+document.body.appendChild(heart)
+setTimeout(()=>heart.remove(),7000)
+},1500)
+
+setInterval(()=>{
+let heart = document.createElement("div")
+heart.className = "heart"
+heart.style.left = Math.random()*100+"vw"
+heart.innerHTML = "💚"
+document.body.appendChild(heart)
+setTimeout(()=>heart.remove(),7000)
+},1500)
 </script>
 
 </body>
