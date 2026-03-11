@@ -3,118 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nayla Adventure: Memory Catcher 🕹️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <title>Nayla's Pop-Up World 🌸</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --neon-pink: #ff00ff;
-            --neon-blue: #00ffff;
-            --neon-green: #39ff14;
+            --pink-soft: #ffdde1;
+            --blue-soft: #ee9ca7;
+            --text-color: #884d54;
         }
 
         body {
             margin: 0;
-            background: #121212;
-            font-family: 'Press Start 2P', cursive;
-            color: white;
-            overflow: hidden;
+            padding: 0;
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(to bottom, #ffdee9, #b5fffc);
             height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-color);
+        }
+
+        /* Header UI */
+        #ui-layer {
+            margin-top: 20px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .score-board {
+            background: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+            border: 3px solid var(--pink-soft);
+        }
+
+        /* Game Area */
+        #game-container {
+            position: relative;
+            width: 100%;
+            flex-grow: 1;
+            margin: 20px;
+        }
+
+        /* Bubble Style */
+        .bubble {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            transition: transform 0.2s;
+        }
+
+        .bubble img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .bubble:active {
+            transform: scale(0.8);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes popOut {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        /* Overlay & Start Button */
+        #overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 100;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
         }
 
-        #game-ui {
-            position: fixed;
-            top: 20px;
-            width: 90%;
-            display: flex;
-            justify-content: space-between;
-            z-index: 100;
-            font-size: 12px;
-            pointer-events: none;
-        }
-
-        .score-box { color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green); }
-
-        #start-screen {
-            text-align: center;
-            z-index: 200;
-            background: rgba(0,0,0,0.9);
-            padding: 40px;
-            border: 4px double var(--neon-blue);
-        }
-
-        .btn-start {
-            background: var(--neon-pink);
+        .start-btn {
+            background: var(--blue-soft);
             color: white;
             border: none;
-            padding: 20px 40px;
-            font-family: 'Press Start 2P';
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: bold;
             cursor: pointer;
-            margin-top: 30px;
-            box-shadow: 5px 5px 0px white;
+            box-shadow: 0 10px 20px rgba(238, 156, 167, 0.4);
+            transition: 0.3s;
         }
 
-        .btn-start:hover { transform: scale(1.1); box-shadow: 8px 8px 0px var(--neon-blue); }
+        .start-btn:hover { transform: translateY(-5px); }
 
-        /* Gaya item yang jatuh */
-        .drop-item {
-            position: absolute;
-            cursor: pointer;
-            border: 3px solid white;
-            box-shadow: 0 0 15px rgba(255,255,255,0.5);
-            transition: transform 0.1s;
-            user-select: none;
-        }
-
-        .drop-item:active { transform: scale(0.8); }
-
-        /* Efek Ledakan saat diklik */
-        .pop-effect {
-            position: absolute;
-            color: var(--neon-pink);
-            font-size: 14px;
-            pointer-events: none;
-            animation: floatUp 0.5s forwards;
-        }
-
-        @keyframes floatUp {
-            to { transform: translateY(-50px); opacity: 0; }
-        }
-
-        #final-message {
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            color: black;
-            padding: 20px;
-            display: none;
-            z-index: 300;
-            text-align: center;
-            width: 80%;
-        }
+        /* Floating decoration */
+        .deco { position: fixed; font-size: 24px; opacity: 0.5; z-index: 1; }
     </style>
 </head>
 <body>
 
-<div id="game-ui">
-    <div class="score-box">MEMORIES: <span id="score">0</span></div>
-    <div style="color: var(--neon-pink)">LEVEL: HARDCORE</div>
+<div id="ui-layer">
+    <div class="score-board">Pop Count: <span id="score">0</span> 🌸</div>
+    <p style="font-size: 14px; margin-top: 5px;">Cari fotonya dan klik yaa!</p>
 </div>
 
-<div id="start-screen">
-    <h1 style="color: var(--neon-blue); margin-bottom: 20px;">NAYLA CATCHER</h1>
-    <p style="font-size: 10px; line-height: 2;">Tangkap semua kenangan yang jatuh!<br>Setiap klik bakal ada suaranya.<br>Hati-hati, makin lama makin cepet!</p>
-    <button class="btn-start" onclick="startGame()">START GAME</button>
-</div>
+<div id="game-container"></div>
 
-<div id="final-message">
-    <h2 id="final-title"></h2>
-    <p id="final-text"></p>
-    <button onclick="location.reload()" style="font-family:'Press Start 2P'; padding:10px; margin-top:10px;">MAIN LAGI?</button>
+<div id="overlay">
+    <h1 style="font-size: 28px;">Nayla's Pop-Up 🎀</h1>
+    <p style="text-align: center; padding: 0 20px;">Klik setiap foto yang muncul buat dengerin suaranya!</p>
+    <button class="start-btn" onclick="startGame()">Mulai Main!</button>
 </div>
 
 <audio id="bgm" src="bestparpart.m4a" loop></audio>
@@ -133,107 +152,73 @@
     ];
 
     let score = 0;
-    let gameActive = false;
-    let dropSpeed = 3000; // milidetik
-    let spawnRate = 1000;
+    const container = document.getElementById('game-container');
 
     function startGame() {
-        document.getElementById('start-screen').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
         document.getElementById('bgm').play();
-        gameActive = true;
-        gameLoop();
+        spawnPopUp();
+        addDecoration();
     }
 
-    function gameLoop() {
-        if (!gameActive) return;
-
-        createItem();
+    function spawnPopUp() {
+        // Membuat bubble baru
+        const bubble = document.createElement('div');
+        bubble.className = 'bubble';
         
-        // Semakin tinggi skor, semakin cepat munculnya
-        let nextSpawn = Math.max(400, spawnRate - (score * 20));
-        setTimeout(gameLoop, nextSpawn);
-    }
+        // Pilih gambar acak
+        const img = document.createElement('img');
+        img.src = images[Math.floor(Math.random() * images.length)];
+        bubble.appendChild(img);
 
-    function createItem() {
-        const item = document.createElement('img');
-        const randomImg = images[Math.floor(Math.random() * images.length)];
-        
-        item.src = randomImg;
-        item.className = 'drop-item';
-        
-        // Ukuran acak
-        const size = Math.floor(Math.random() * 60) + 70;
-        item.style.width = size + 'px';
-        item.style.height = size + 'px';
-        item.style.objectFit = 'cover';
-        item.style.borderRadius = (Math.random() > 0.5 ? '50%' : '8px');
+        // Posisi acak (pastikan tidak keluar layar)
+        const x = Math.random() * (window.innerWidth - 120);
+        const y = Math.random() * (container.offsetHeight - 120);
+        bubble.style.left = x + 'px';
+        bubble.style.top = y + 'px';
 
-        // Posisi Horizontal acak
-        item.style.left = Math.random() * (window.innerWidth - size) + 'px';
-        item.style.top = '-100px';
+        container.appendChild(bubble);
 
-        document.body.appendChild(item);
-
-        // Animasi Jatuh
-        let pos = -100;
-        let speed = Math.random() * 2 + 2 + (score / 10); // Makin lama makin cepet jatuhnya
-        
-        const fall = setInterval(() => {
-            if (!gameActive) {
-                clearInterval(fall);
-                item.remove();
-                return;
+        // Menghilang otomatis setelah 2 detik kalau tidak diklik
+        const autoRemove = setTimeout(() => {
+            if(bubble.parentElement) {
+                bubble.style.animation = 'popOut 0.3s forwards';
+                setTimeout(() => bubble.remove(), 300);
             }
+        }, 2000);
 
-            pos += speed;
-            item.style.top = pos + 'px';
-
-            if (pos > window.innerHeight) {
-                clearInterval(fall);
-                item.remove();
-                // Kalau jatuh sampai bawah, game over atau kurangi nyawa? 
-                // Kita buat santai aja, tapi kalau skor sudah 50 muncul pesan sukses
-                if (score >= 50) endGame("MISSION COMPLETE!", "Kamu hebat banget nangkap semua memorinya! Nayla emang jagonya. 🏆");
-            }
-        }, 10);
-
-        // Klik Item
-        item.onclick = () => {
+        // Saat diklik
+        bubble.onclick = () => {
+            clearTimeout(autoRemove);
             score++;
             document.getElementById('score').innerText = score;
-            
-            // Putar Suara Acak
-            const vIndex = Math.floor(Math.random() * 5) + 1;
-            const sound = document.getElementById('v' + vIndex);
+
+            // Suara acak
+            const vNum = Math.floor(Math.random() * 5) + 1;
+            const sound = document.getElementById('v' + vNum);
             sound.currentTime = 0;
             sound.play();
 
-            // Efek Pop
-            const pop = document.createElement('div');
-            pop.className = 'pop-effect';
-            pop.innerText = '+1 LOVE';
-            pop.style.left = item.style.left;
-            pop.style.top = item.style.top;
-            document.body.appendChild(pop);
-            setTimeout(() => pop.remove(), 500);
-
-            clearInterval(fall);
-            item.remove();
-
-            if (score === 15) {
-                // Interupsi teks kecil
-                console.log("Keep going, Nanay!");
-            }
+            bubble.style.animation = 'popOut 0.2s forwards';
+            setTimeout(() => bubble.remove(), 200);
         };
+
+        // Atur kecepatan kemunculan berikutnya (makin lama makin dikit jedanya)
+        let nextSpawn = Math.max(600, 1200 - (score * 10));
+        setTimeout(spawnPopUp, nextSpawn);
     }
 
-    function endGame(title, text) {
-        gameActive = false;
-        const msg = document.getElementById('final-message');
-        document.getElementById('final-title').innerText = title;
-        document.getElementById('final-text').innerText = text;
-        msg.style.display = 'block';
-        document.getElementById('bgm').pause();
+    function addDecoration() {
+        const emojis = ['✨', '☁️', '💖', '🍀', '🍓'];
+        setInterval(() => {
+            const d = document.createElement('div');
+            d.className = 'deco';
+            d.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            d.style.left = Math.random() * 100 + 'vw';
+            d.style.top = Math.random() * 100 + 'vh';
+            document.body.appendChild(d);
+            setTimeout(() => d.remove(), 3000);
+        }, 1000);
     }
 </script>
 
