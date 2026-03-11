@@ -1,237 +1,228 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A Little Piece of Us 🌿</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nayla's Multiverse 🌌</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            background: #050505;
+            color: #00ff41; /* Matrix/Cyberpunk Green */
+            font-family: 'Space Mono', monospace;
+            overflow: hidden;
+            height: 100vh;
+            cursor: crosshair;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Playfair+Display:italic,wght@700&display=swap" rel="stylesheet">
+        /* Scanline effect untuk kesan absurd/retro */
+        body::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 100;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
 
-<style>
-:root {
-    --primary: #8da18a; /* Sage Green */
-    --accent: #d4a373;  /* Warm Earthy */
-    --bg-light: #fefae0;
-}
+        #entry-point {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 200;
+            text-align: center;
+        }
 
-body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: var(--bg-light);
-    overflow-x: hidden;
-    text-align: center;
-    color: #4a5d4c;
-}
+        .glitch {
+            font-size: 3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            position: relative;
+            text-shadow: 0.05em 0 0 rgba(255,0,0,.75), -0.025em -0.05em 0 rgba(0,255,0,.75), 0.025em 0.05em 0 rgba(0,0,255,.75);
+            animation: glitch 500ms infinite;
+        }
 
-/* Background floating elements */
-.leaf {
-    position: fixed;
-    top: -50px;
-    font-size: 24px;
-    z-index: 1;
-    animation: fall 10s linear infinite;
-}
+        @keyframes glitch {
+            0% { text-shadow: 0.05em 0 0 rgba(255,0,0,.75), -0.05em -0.025em 0 rgba(0,255,0,.75); }
+            50% { text-shadow: -0.05em -0.025em 0 rgba(255,0,0,.75), 0.025em 0.025em 0 rgba(0,255,0,.75); }
+            100% { text-shadow: -0.025em 0 0 rgba(255,0,0,.75), -0.025em -0.05em 0 rgba(0,255,0,.75); }
+        }
 
-@keyframes fall {
-    to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-}
+        .orbit-container {
+            position: absolute;
+            width: 100%; height: 100%;
+            display: none;
+        }
 
-section {
-    padding: 60px 20px;
-    position: relative;
-    z-index: 2;
-    min-height: 80vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        /* Element yang melayang-layang secara acak */
+        .floating-asset {
+            position: absolute;
+            border: 2px solid #00ff41;
+            filter: drop-shadow(0 0 10px #00ff41);
+            transition: 0.3s;
+            cursor: pointer;
+            z-index: 10;
+        }
 
-.glass {
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(15px);
-    padding: 40px;
-    border-radius: 30px;
-    max-width: 700px;
-    margin: auto;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.05);
-}
+        .floating-asset:hover {
+            transform: scale(1.5) rotate(10deg);
+            z-index: 100;
+            filter: hue-rotate(90deg) brightness(1.5);
+        }
 
-.title-font {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
-    color: var(--primary);
-    margin-bottom: 10px;
-}
+        img.floating-asset { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; }
+        video.floating-asset { width: 150px; border-radius: 10px; }
 
-button {
-    background: var(--primary);
-    border: none;
-    padding: 12px 28px;
-    font-size: 15px;
-    color: white;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    margin: 20px 0;
-}
+        .terminal-text {
+            position: fixed;
+            bottom: 20px; left: 20px;
+            font-size: 12px;
+            z-index: 50;
+            background: rgba(0,0,0,0.7);
+            padding: 10px;
+            border-left: 3px solid #ff00ff;
+        }
 
-button:hover {
-    transform: scale(1.1) translateY(-3px);
-    box-shadow: 0 10px 20px rgba(141, 161, 138, 0.3);
-}
+        button {
+            background: none;
+            color: #ff00ff;
+            border: 2px solid #ff00ff;
+            padding: 10px 20px;
+            font-family: 'Space Mono';
+            cursor: pointer;
+            margin-top: 20px;
+        }
 
-.hidden { display: none; opacity: 0; }
+        button:hover {
+            background: #ff00ff;
+            color: white;
+            box-shadow: 0 0 20px #ff00ff;
+        }
 
-/* Memory Grid */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
-    margin-top: 30px;
-}
-
-.memory-card {
-    background: white;
-    padding: 10px;
-    border-radius: 15px;
-    box-shadow: 0 10px 15px rgba(0,0,0,0.05);
-    cursor: pointer;
-    transition: .3s;
-}
-
-.memory-card img, .memory-card video {
-    width: 100%;
-    border-radius: 10px;
-    filter: grayscale(100%);
-    transition: .5s;
-}
-
-.memory-card:hover { transform: translateY(-10px) rotate(2deg); }
-.memory-card:hover img { filter: grayscale(0%); }
-
-.msg-box {
-    font-style: italic;
-    font-size: 14px;
-    margin-top: 20px;
-    color: #777;
-}
-
-/* Music Control Floating */
-.music-control {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: white;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    z-index: 100;
-    cursor: pointer;
-}
-
-</style>
+        /* Star background */
+        #stars { position: fixed; top: 0; left: 0; z-index: 0; }
+    </style>
 </head>
 <body>
 
-<audio id="music" src="bestparpart.m4a" loop></audio>
-<div class="music-control" onclick="toggleMusic()">🎵</div>
+<canvas id="stars"></canvas>
 
-<section id="pintu">
-    <div class="glass">
-        <h1 class="title-font">Hi, Nayla.</h1>
-        <p>Bukan hari spesial, bukan tanggal merah.<br>Hanya ingin bilang terima kasih sudah ada.</p>
-        <button onclick="bukaHalaman()">Masuk ke Taman 🌿</button>
+<div id="entry-point">
+    <h1 class="glitch">SYSTEM DETECTED: NAYLA</h1>
+    <p>> Error: Too much cuteness found <br> > Status: System Overload</p>
+    <button onclick="launchMultiverse()">INITIALIZE LAUNCH</button>
+</div>
+
+<div class="orbit-container" id="multiverse">
     </div>
-</section>
 
-<section id="konten" class="hidden">
-    <div class="glass">
-        <h2 class="title-font">Captured Moments</h2>
-        <p>Setiap foto punya ceritanya sendiri, <br> arahkan kursor (atau tekan) fotonya untuk memberi warna.</p>
-        
-        <div class="grid">
-            <div class="memory-card">
-                <img src="foto1.jpg">
-                <p style="font-size: 12px;">First Date?</p>
-            </div>
-            <div class="memory-card">
-                <img src="foto2.jpg">
-                <p style="font-size: 12px;">Favorite us</p>
-            </div>
-            <div class="memory-card">
-                <video src="video1.mp4" muted loop onmouseover="this.play()" onmouseout="this.pause()"></video>
-                <p style="font-size: 12px;">Funny moments</p>
-            </div>
-            <div class="memory-card">
-                <img src="foto3.jpg">
-                <p style="font-size: 12px;">Your smile</p>
-            </div>
-        </div>
+<div class="terminal-text" id="log">
+    [SYSTEM LOG]: Waiting for interaction...
+</div>
 
-        <div class="msg-box" id="quotes">
-            "You are my favorite chapter in every book I read."
-        </div>
-
-        <button onclick="tampilPesan()">Klik untuk Pesan Tersembunyi ✨</button>
-        <p id="pesanRahasia" class="hidden" style="color: var(--accent); font-weight: 500; margin-top: 15px;">
-            Semangat terus ya belajarnya, jangan lupa istirahat. UI nungguin kamu! 💚
-        </p>
-    </div>
-</section>
+<audio id="bgm" src="bestparpart.m4a" loop></audio>
+<audio id="v1" src="bintang1.m4a"></audio>
+<audio id="v2" src="bintang2.m4a"></audio>
+<audio id="v3" src="bintang3.m4a"></audio>
+<audio id="v4" src="bintang4.m4a"></audio>
+<audio id="v5" src="bintang5.m4a"></audio>
 
 <script>
-const music = document.getElementById('music');
+    const assets = [
+        'foto1.jpg', 'foto2.jpg', 'foto3.jpg', 
+        'k1.JPG', 'k2.JPG', 'k3.JPG', 'k4.jpg', 'k5.JPG', 'k6.jpg', 'k7.jpg', 'k8.jpg', 
+        'k9.JPG', 'k10.jpg', 'k11.JPG', 'k12.JPG', 'k13.JPG', 'k14.JPG', 'k15.JPG', 
+        'k16.JPG', 'k17.jpg', 'k18.JPG', 'k19.JPG', 'k20.JPG', 'k21.JPG', 'k22.jpg', 'k23.jpg'
+    ];
 
-function bukaHalaman() {
-    document.getElementById('pintu').style.display = 'none';
-    const konten = document.getElementById('konten');
-    konten.classList.remove('hidden');
-    konten.style.opacity = '1';
-    konten.style.transition = 'opacity 1.5s';
-    startLeaves();
-    music.play();
-}
+    function launchMultiverse() {
+        document.getElementById('entry-point').style.display = 'none';
+        document.getElementById('multiverse').style.display = 'block';
+        document.getElementById('bgm').play();
+        generateAssets();
+        logMessage("MULTIVERSE STABILIZED. WELCOME HOME, PRINCESS.");
+    }
 
-function toggleMusic() {
-    if (music.paused) music.play();
-    else music.pause();
-}
+    function logMessage(msg) {
+        const log = document.getElementById('log');
+        log.innerHTML = `[SYSTEM LOG]: ${msg}`;
+    }
 
-function tampilPesan() {
-    const p = document.getElementById('pesanRahasia');
-    p.classList.toggle('hidden');
-    p.style.opacity = '1';
-}
+    function generateAssets() {
+        const container = document.getElementById('multiverse');
+        
+        // Sebarkan Gambar
+        assets.forEach((src, index) => {
+            const img = document.createElement('img');
+            img.src = src;
+            img.className = 'floating-asset';
+            randomizePosition(img);
+            img.onclick = () => {
+                const voice = Math.floor(Math.random() * 5) + 1;
+                document.getElementById('v' + voice).play();
+                logMessage(`Accessing Memory Chunk_${index}... Result: Pure Joy.`);
+            };
+            container.appendChild(img);
+            animateFloating(img);
+        });
 
-function startLeaves() {
-    setInterval(() => {
-        const leaf = document.createElement("div");
-        leaf.className = "leaf";
-        leaf.style.left = Math.random() * 100 + "vw";
-        leaf.innerHTML = ["🌿", "🌸", "🍃", "✨"][Math.floor(Math.random() * 4)];
-        document.body.appendChild(leaf);
-        setTimeout(() => leaf.remove(), 10000);
-    }, 1000);
-}
+        // Masukkan Video
+        const vid = document.createElement('video');
+        vid.src = 'video1.mp4';
+        vid.className = 'floating-asset';
+        vid.autoplay = true;
+        vid.loop = true;
+        vid.muted = true;
+        randomizePosition(vid);
+        vid.onmouseover = () => { vid.muted = false; logMessage("Video Stream Decrypted."); };
+        vid.onmouseout = () => { vid.muted = true; };
+        container.appendChild(vid);
+        animateFloating(vid);
+    }
 
-// Ganti quotes secara otomatis
-const q = [
-    "You make the mundane feel like magic.",
-    "Terima kasih sudah menjadi bagian dari hari-hariku.",
-    "Keep shining, Princess Nanayy.",
-    "I'm always rooting for you, no matter what."
-];
-let i = 0;
-setInterval(() => {
-    document.getElementById('quotes').innerText = q[i];
-    i = (i + 1) % q.length;
-}, 4000);
+    function randomizePosition(el) {
+        el.style.top = Math.random() * 80 + 10 + "%";
+        el.style.left = Math.random() * 80 + 10 + "%";
+    }
 
+    function animateFloating(el) {
+        let x = Math.random() * 2 - 1;
+        let y = Math.random() * 2 - 1;
+        
+        setInterval(() => {
+            let top = parseFloat(el.style.top);
+            let left = parseFloat(el.style.left);
+            
+            if (top <= 0 || top >= 95) y *= -1;
+            if (left <= 0 || left >= 95) x *= -1;
+            
+            el.style.top = (top + y * 0.2) + "%";
+            el.style.left = (left + x * 0.2) + "%";
+        }, 30);
+    }
+
+    // Canvas Background logic
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    function drawStars() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#ffffff";
+        for (let i = 0; i < 100; i++) {
+            ctx.beginPath();
+            ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 2, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+    setInterval(drawStars, 100);
+
+    logMessage("Initializing core components...");
 </script>
+
 </body>
 </html>
