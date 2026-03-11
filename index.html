@@ -3,124 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nayla's Multiverse 🌌</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <title>Nayla Adventure: Memory Catcher 🕹️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
-        body {
-            margin: 0;
-            background: #050505;
-            color: #00ff41; /* Matrix/Cyberpunk Green */
-            font-family: 'Space Mono', monospace;
-            overflow: hidden;
-            height: 100vh;
-            cursor: crosshair;
+        :root {
+            --neon-pink: #ff00ff;
+            --neon-blue: #00ffff;
+            --neon-green: #39ff14;
         }
 
-        /* Scanline effect untuk kesan absurd/retro */
-        body::before {
-            content: " ";
-            display: block;
-            position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+        body {
+            margin: 0;
+            background: #121212;
+            font-family: 'Press Start 2P', cursive;
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #game-ui {
+            position: fixed;
+            top: 20px;
+            width: 90%;
+            display: flex;
+            justify-content: space-between;
             z-index: 100;
-            background-size: 100% 2px, 3px 100%;
+            font-size: 12px;
             pointer-events: none;
         }
 
-        #entry-point {
+        .score-box { color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green); }
+
+        #start-screen {
+            text-align: center;
+            z-index: 200;
+            background: rgba(0,0,0,0.9);
+            padding: 40px;
+            border: 4px double var(--neon-blue);
+        }
+
+        .btn-start {
+            background: var(--neon-pink);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-family: 'Press Start 2P';
+            cursor: pointer;
+            margin-top: 30px;
+            box-shadow: 5px 5px 0px white;
+        }
+
+        .btn-start:hover { transform: scale(1.1); box-shadow: 8px 8px 0px var(--neon-blue); }
+
+        /* Gaya item yang jatuh */
+        .drop-item {
+            position: absolute;
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 0 15px rgba(255,255,255,0.5);
+            transition: transform 0.1s;
+            user-select: none;
+        }
+
+        .drop-item:active { transform: scale(0.8); }
+
+        /* Efek Ledakan saat diklik */
+        .pop-effect {
+            position: absolute;
+            color: var(--neon-pink);
+            font-size: 14px;
+            pointer-events: none;
+            animation: floatUp 0.5s forwards;
+        }
+
+        @keyframes floatUp {
+            to { transform: translateY(-50px); opacity: 0; }
+        }
+
+        #final-message {
             position: fixed;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 200;
-            text-align: center;
-        }
-
-        .glitch {
-            font-size: 3rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            position: relative;
-            text-shadow: 0.05em 0 0 rgba(255,0,0,.75), -0.025em -0.05em 0 rgba(0,255,0,.75), 0.025em 0.05em 0 rgba(0,0,255,.75);
-            animation: glitch 500ms infinite;
-        }
-
-        @keyframes glitch {
-            0% { text-shadow: 0.05em 0 0 rgba(255,0,0,.75), -0.05em -0.025em 0 rgba(0,255,0,.75); }
-            50% { text-shadow: -0.05em -0.025em 0 rgba(255,0,0,.75), 0.025em 0.025em 0 rgba(0,255,0,.75); }
-            100% { text-shadow: -0.025em 0 0 rgba(255,0,0,.75), -0.025em -0.05em 0 rgba(0,255,0,.75); }
-        }
-
-        .orbit-container {
-            position: absolute;
-            width: 100%; height: 100%;
+            background: white;
+            color: black;
+            padding: 20px;
             display: none;
+            z-index: 300;
+            text-align: center;
+            width: 80%;
         }
-
-        /* Element yang melayang-layang secara acak */
-        .floating-asset {
-            position: absolute;
-            border: 2px solid #00ff41;
-            filter: drop-shadow(0 0 10px #00ff41);
-            transition: 0.3s;
-            cursor: pointer;
-            z-index: 10;
-        }
-
-        .floating-asset:hover {
-            transform: scale(1.5) rotate(10deg);
-            z-index: 100;
-            filter: hue-rotate(90deg) brightness(1.5);
-        }
-
-        img.floating-asset { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; }
-        video.floating-asset { width: 150px; border-radius: 10px; }
-
-        .terminal-text {
-            position: fixed;
-            bottom: 20px; left: 20px;
-            font-size: 12px;
-            z-index: 50;
-            background: rgba(0,0,0,0.7);
-            padding: 10px;
-            border-left: 3px solid #ff00ff;
-        }
-
-        button {
-            background: none;
-            color: #ff00ff;
-            border: 2px solid #ff00ff;
-            padding: 10px 20px;
-            font-family: 'Space Mono';
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        button:hover {
-            background: #ff00ff;
-            color: white;
-            box-shadow: 0 0 20px #ff00ff;
-        }
-
-        /* Star background */
-        #stars { position: fixed; top: 0; left: 0; z-index: 0; }
     </style>
 </head>
 <body>
 
-<canvas id="stars"></canvas>
-
-<div id="entry-point">
-    <h1 class="glitch">SYSTEM DETECTED: NAYLA</h1>
-    <p>> Error: Too much cuteness found <br> > Status: System Overload</p>
-    <button onclick="launchMultiverse()">INITIALIZE LAUNCH</button>
+<div id="game-ui">
+    <div class="score-box">MEMORIES: <span id="score">0</span></div>
+    <div style="color: var(--neon-pink)">LEVEL: HARDCORE</div>
 </div>
 
-<div class="orbit-container" id="multiverse">
-    </div>
+<div id="start-screen">
+    <h1 style="color: var(--neon-blue); margin-bottom: 20px;">NAYLA CATCHER</h1>
+    <p style="font-size: 10px; line-height: 2;">Tangkap semua kenangan yang jatuh!<br>Setiap klik bakal ada suaranya.<br>Hati-hati, makin lama makin cepet!</p>
+    <button class="btn-start" onclick="startGame()">START GAME</button>
+</div>
 
-<div class="terminal-text" id="log">
-    [SYSTEM LOG]: Waiting for interaction...
+<div id="final-message">
+    <h2 id="final-title"></h2>
+    <p id="final-text"></p>
+    <button onclick="location.reload()" style="font-family:'Press Start 2P'; padding:10px; margin-top:10px;">MAIN LAGI?</button>
 </div>
 
 <audio id="bgm" src="bestparpart.m4a" loop></audio>
@@ -131,97 +125,116 @@
 <audio id="v5" src="bintang5.m4a"></audio>
 
 <script>
-    const assets = [
+    const images = [
         'foto1.jpg', 'foto2.jpg', 'foto3.jpg', 
         'k1.JPG', 'k2.JPG', 'k3.JPG', 'k4.jpg', 'k5.JPG', 'k6.jpg', 'k7.jpg', 'k8.jpg', 
         'k9.JPG', 'k10.jpg', 'k11.JPG', 'k12.JPG', 'k13.JPG', 'k14.JPG', 'k15.JPG', 
         'k16.JPG', 'k17.jpg', 'k18.JPG', 'k19.JPG', 'k20.JPG', 'k21.JPG', 'k22.jpg', 'k23.jpg'
     ];
 
-    function launchMultiverse() {
-        document.getElementById('entry-point').style.display = 'none';
-        document.getElementById('multiverse').style.display = 'block';
+    let score = 0;
+    let gameActive = false;
+    let dropSpeed = 3000; // milidetik
+    let spawnRate = 1000;
+
+    function startGame() {
+        document.getElementById('start-screen').style.display = 'none';
         document.getElementById('bgm').play();
-        generateAssets();
-        logMessage("MULTIVERSE STABILIZED. WELCOME HOME, PRINCESS.");
+        gameActive = true;
+        gameLoop();
     }
 
-    function logMessage(msg) {
-        const log = document.getElementById('log');
-        log.innerHTML = `[SYSTEM LOG]: ${msg}`;
-    }
+    function gameLoop() {
+        if (!gameActive) return;
 
-    function generateAssets() {
-        const container = document.getElementById('multiverse');
+        createItem();
         
-        // Sebarkan Gambar
-        assets.forEach((src, index) => {
-            const img = document.createElement('img');
-            img.src = src;
-            img.className = 'floating-asset';
-            randomizePosition(img);
-            img.onclick = () => {
-                const voice = Math.floor(Math.random() * 5) + 1;
-                document.getElementById('v' + voice).play();
-                logMessage(`Accessing Memory Chunk_${index}... Result: Pure Joy.`);
-            };
-            container.appendChild(img);
-            animateFloating(img);
-        });
-
-        // Masukkan Video
-        const vid = document.createElement('video');
-        vid.src = 'video1.mp4';
-        vid.className = 'floating-asset';
-        vid.autoplay = true;
-        vid.loop = true;
-        vid.muted = true;
-        randomizePosition(vid);
-        vid.onmouseover = () => { vid.muted = false; logMessage("Video Stream Decrypted."); };
-        vid.onmouseout = () => { vid.muted = true; };
-        container.appendChild(vid);
-        animateFloating(vid);
+        // Semakin tinggi skor, semakin cepat munculnya
+        let nextSpawn = Math.max(400, spawnRate - (score * 20));
+        setTimeout(gameLoop, nextSpawn);
     }
 
-    function randomizePosition(el) {
-        el.style.top = Math.random() * 80 + 10 + "%";
-        el.style.left = Math.random() * 80 + 10 + "%";
-    }
-
-    function animateFloating(el) {
-        let x = Math.random() * 2 - 1;
-        let y = Math.random() * 2 - 1;
+    function createItem() {
+        const item = document.createElement('img');
+        const randomImg = images[Math.floor(Math.random() * images.length)];
         
-        setInterval(() => {
-            let top = parseFloat(el.style.top);
-            let left = parseFloat(el.style.left);
+        item.src = randomImg;
+        item.className = 'drop-item';
+        
+        // Ukuran acak
+        const size = Math.floor(Math.random() * 60) + 70;
+        item.style.width = size + 'px';
+        item.style.height = size + 'px';
+        item.style.objectFit = 'cover';
+        item.style.borderRadius = (Math.random() > 0.5 ? '50%' : '8px');
+
+        // Posisi Horizontal acak
+        item.style.left = Math.random() * (window.innerWidth - size) + 'px';
+        item.style.top = '-100px';
+
+        document.body.appendChild(item);
+
+        // Animasi Jatuh
+        let pos = -100;
+        let speed = Math.random() * 2 + 2 + (score / 10); // Makin lama makin cepet jatuhnya
+        
+        const fall = setInterval(() => {
+            if (!gameActive) {
+                clearInterval(fall);
+                item.remove();
+                return;
+            }
+
+            pos += speed;
+            item.style.top = pos + 'px';
+
+            if (pos > window.innerHeight) {
+                clearInterval(fall);
+                item.remove();
+                // Kalau jatuh sampai bawah, game over atau kurangi nyawa? 
+                // Kita buat santai aja, tapi kalau skor sudah 50 muncul pesan sukses
+                if (score >= 50) endGame("MISSION COMPLETE!", "Kamu hebat banget nangkap semua memorinya! Nayla emang jagonya. 🏆");
+            }
+        }, 10);
+
+        // Klik Item
+        item.onclick = () => {
+            score++;
+            document.getElementById('score').innerText = score;
             
-            if (top <= 0 || top >= 95) y *= -1;
-            if (left <= 0 || left >= 95) x *= -1;
-            
-            el.style.top = (top + y * 0.2) + "%";
-            el.style.left = (left + x * 0.2) + "%";
-        }, 30);
+            // Putar Suara Acak
+            const vIndex = Math.floor(Math.random() * 5) + 1;
+            const sound = document.getElementById('v' + vIndex);
+            sound.currentTime = 0;
+            sound.play();
+
+            // Efek Pop
+            const pop = document.createElement('div');
+            pop.className = 'pop-effect';
+            pop.innerText = '+1 LOVE';
+            pop.style.left = item.style.left;
+            pop.style.top = item.style.top;
+            document.body.appendChild(pop);
+            setTimeout(() => pop.remove(), 500);
+
+            clearInterval(fall);
+            item.remove();
+
+            if (score === 15) {
+                // Interupsi teks kecil
+                console.log("Keep going, Nanay!");
+            }
+        };
     }
 
-    // Canvas Background logic
-    const canvas = document.getElementById('stars');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    function drawStars() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "#ffffff";
-        for (let i = 0; i < 100; i++) {
-            ctx.beginPath();
-            ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 2, 0, Math.PI * 2);
-            ctx.fill();
-        }
+    function endGame(title, text) {
+        gameActive = false;
+        const msg = document.getElementById('final-message');
+        document.getElementById('final-title').innerText = title;
+        document.getElementById('final-text').innerText = text;
+        msg.style.display = 'block';
+        document.getElementById('bgm').pause();
     }
-    setInterval(drawStars, 100);
-
-    logMessage("Initializing core components...");
 </script>
 
 </body>
