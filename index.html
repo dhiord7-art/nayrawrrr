@@ -1,240 +1,221 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nayla's Retro Dimension 📺✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <title>Nayla's Polaroid Wall ✨💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --neon-purple: #bc13fe;
-            --neon-pink: #ff00ff;
-            --bg-dark: #0d0221;
-        }
-
         body {
             margin: 0;
-            background: var(--bg-dark);
-            color: #00ff41; /* Hijau Monitor Tua */
-            font-family: 'VT323', monospace;
+            padding: 0;
+            background: #fdf6f0; /* Cream hangat */
+            font-family: 'Quicksand', sans-serif;
+            color: #5d4037;
+            overflow-x: hidden; /* Mencegah scroll horizontal */
+        }
+
+        .header {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .header h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            margin: 0;
+            color: #d4a373;
+        }
+
+        .header p {
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #a98467;
+            margin-top: 10px;
+        }
+
+        /* Container Utama Dinding Foto */
+        .photo-wall {
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Gaya Polaroid */
+        .polaroid {
+            background: white;
+            padding: 10px 10px 30px 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-radius: 2px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            width: 150px; /* Ukuran compact agar muat banyak */
+            position: relative;
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border: 1px solid #eee;
+        }
+
+        .polaroid:hover {
+            transform: scale(1.05) rotate(0deg) !important;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            z-index: 10;
+        }
+
+        /* Gaya Teks Bahasa Inggris di sela-sela foto */
+        .quote-card {
+            background: #fefae0;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px dashed #d4a373;
+            text-align: center;
+            font-style: italic;
+            color: #a98467;
+            width: 100%;
+            max-width: 300px;
+            display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            overflow: hidden;
+            margin: 10px;
         }
 
-        /* Scanlines Effect */
-        body::after {
-            content: " ";
+        /* Animasi Hati Betebaran */
+        .heart {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
-            background-size: 100% 2px, 3px 100%;
-            z-index: 100;
+            font-size: 20px;
+            color: #ff80ab;
             pointer-events: none;
+            z-index: 1000;
+            animation: flutter 2s linear forwards;
         }
 
-        /* Retro TV Container */
-        .tv-frame {
-            width: 320px;
-            height: 280px;
-            background: #4a4a4a;
-            border: 10px solid #222;
-            border-radius: 40px;
-            position: relative;
-            box-shadow: 0 0 50px rgba(188, 19, 254, 0.3);
-            display: flex;
-            padding: 20px;
+        @keyframes flutter {
+            0% { transform: translateY(0) translateX(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px) scale(0.5); opacity: 0; }
         }
 
-        /* Layar TV */
-        #screen {
-            width: 80%;
-            height: 100%;
-            background: #111;
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-            border: 4px solid #333;
-        }
-
-        #screen img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: contrast(1.2) brightness(1.1) sepia(0.3);
-            opacity: 0.8;
-            transition: 0.1s;
-        }
-
-        /* Static/Noisy Effect */
-        .noise {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://media.giphy.com/media/oEI9uWUicKgR2/giphy.gif');
-            opacity: 0.1;
-            display: none;
-            z-index: 5;
-        }
-
-        /* Controls (Tombol TV) */
-        .controls {
-            width: 20%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-around;
-            padding-left: 10px;
-        }
-
-        .knob {
-            width: 35px;
-            height: 35px;
-            background: #222;
-            border-radius: 50%;
-            border: 2px solid #666;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .knob::after {
-            content: '';
-            position: absolute;
-            width: 4px; height: 15px;
-            background: #ff00ff;
-            left: 50%; top: 5px;
-            transform: translateX(-50%);
-        }
-
-        .btn-switch {
-            width: 30px;
-            height: 15px;
-            background: #ff00ff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0 0 10px #ff00ff;
-        }
-
-        /* Teks Status */
-        .status-panel {
-            margin-top: 30px;
+        .footer {
             text-align: center;
-            max-width: 300px;
+            padding: 40px;
+            font-size: 0.9rem;
+            color: #bc9c82;
+            background: white;
+            margin-top: 40px;
         }
-
-        .typing {
-            overflow: hidden;
-            white-space: nowrap;
-            border-right: .15em solid #ff00ff;
-            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
-        }
-
-        @keyframes typing { from { width: 0 } to { width: 100% } }
-        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: #ff00ff; } }
     </style>
 </head>
 <body>
 
-<div style="margin-bottom: 20px; color: var(--neon-pink); font-size: 24px;">CHANNEL: NAYLA-TV-01</div>
-
-<div class="tv-frame">
-    <div id="screen">
-        <div class="noise" id="noise"></div>
-        <img id="tv-img" src="foto1.jpg">
+    <div class="header">
+        <h1>For My Favorite Person</h1>
+        <p>Scroll down to see our memories, click a photo for a surprise...</p>
     </div>
-    <div class="controls">
-        <div class="knob" id="knob" onclick="changeChannel()"></div>
-        <div class="knob" style="transform: rotate(90deg);" onclick="changeChannel()"></div>
-        <button class="btn-switch" onclick="togglePower()"></button>
+
+    <div class="photo-wall" id="wall">
+        <script>
+            const images = [
+                'foto1.jpg', 'foto2.jpg', 'foto3.jpg', 
+                'k1.JPG', 'k2.JPG', 'k3.JPG', 'k4.jpg', 'k5.JPG', 'k6.jpg', 'k7.jpg', 'k8.jpg', 
+                'k9.JPG', 'k10.jpg', 'k11.JPG', 'k12.JPG', 'k13.JPG', 'k14.JPG', 'k15.JPG', 
+                'k16.JPG', 'k17.jpg', 'k18.JPG', 'k19.JPG', 'k20.JPG', 'k21.JPG', 'k22.jpg', 'k23.jpg'
+            ];
+
+            const quotes = [
+                "You’re the UI I'd love to login into every day. 📱❤️",
+                "You make my heart do a little 'database commit' every time you smile.",
+                "In a room full of art, I'd still stare at you.",
+                "If cute was a crime, you'd be serving a life sentence! 😉",
+                "I'm not a photographer, but I can totally picture us together forever.",
+                "You're like my favorite song on repeat—I never get tired of you."
+            ];
+
+            const wall = document.getElementById('wall');
+
+            // Fungsi untuk mengacak urutan array
+            function shuffle(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+
+            const shuffledImages = shuffle(images);
+
+            // Masukkan foto dan quote secara bergantian
+            shuffledImages.forEach((src, index) => {
+                // Buat Polaroid
+                const polaroid = document.createElement('div');
+                polaroid.className = 'polaroid';
+                
+                // Rotasi acak sedikit biar estetik
+                const randomRotate = (Math.random() * 10 - 5).toFixed(2);
+                polaroid.style.transform = `rotate(${randomRotate}deg)`;
+                
+                polaroid.innerHTML = `<img src="${src}" alt="Memory ${index}">`;
+                polaroid.onclick = () => { triggerSurprise(); };
+                wall.appendChild(polaroid);
+
+                // Setiap 4 foto, masukkan quote card
+                if ((index + 1) % 4 === 0) {
+                    const quoteCard = document.createElement('div');
+                    quoteCard.className = 'quote-card';
+                    quoteCard.innerText = quotes[Math.floor(Math.random() * quotes.length)];
+                    wall.appendChild(quoteCard);
+                }
+            });
+        </script>
     </div>
-</div>
 
-<div class="status-panel">
-    <p id="msg-text" class="typing">> Mencari sinyal kasih sayang...</p>
-    <p style="font-size: 14px; color: #666;">Putar tombol untuk ganti kenangan</p>
-</div>
+    <div class="footer">
+        Handcrafted with love for Nayla Diana 🕊️
+    </div>
 
-<audio id="bgm" src="bestparpart.m4a" loop></audio>
-<audio id="static-sfx" src="surprise.mp3"></audio> <audio id="v1" src="bintang1.m4a"></audio>
-<audio id="v2" src="bintang2.m4a"></audio>
-<audio id="v3" src="bintang3.m4a"></audio>
-<audio id="v4" src="bintang4.m4a"></audio>
-<audio id="v5" src="bintang5.m4a"></audio>
+    <audio id="bgm" src="bestparpart.m4a" loop></audio>
+    <audio id="v1" src="bintang1.m4a"></audio>
+    <audio id="v2" src="bintang2.m4a"></audio>
+    <audio id="v3" src="bintang3.m4a"></audio>
+    <audio id="v4" src="bintang4.m4a"></audio>
+    <audio id="v5" src="bintang5.m4a"></audio>
 
-<script>
-    const images = [
-        'foto1.jpg', 'foto2.jpg', 'foto3.jpg', 
-        'k1.JPG', 'k2.JPG', 'k3.JPG', 'k4.jpg', 'k5.JPG', 'k6.jpg', 'k7.jpg', 'k8.jpg', 
-        'k9.JPG', 'k10.jpg', 'k11.JPG', 'k12.JPG', 'k13.JPG', 'k14.JPG', 'k15.JPG', 
-        'k16.JPG', 'k17.jpg', 'k18.JPG', 'k19.JPG', 'k20.JPG', 'k21.JPG', 'k22.jpg', 'k23.jpg'
-    ];
+    <script>
+        let bgmStarted = false;
 
-    const messages = [
-        "> Sinyal terdeteksi: Sangat Cantik",
-        "> Decoding memory chip #99...",
-        "> Frekuensi rindu: 102.5 FM",
-        "> Transmisi dari masa lalu...",
-        "> Error: Terlalu sayang untuk dihapus",
-        "> Nayla Multiverse sedang berjalan..."
-    ];
+        function triggerSurprise() {
+            // Start BGM on first click
+            if (!bgmStarted) {
+                document.getElementById('bgm').play().catch(e => {});
+                bgmStarted = true;
+            }
 
-    let isPowerOn = true;
-    const imgEl = document.getElementById('tv-img');
-    const noise = document.getElementById('noise');
-    const msgText = document.getElementById('msg-text');
-    const knob = document.getElementById('knob');
-    const bgm = document.getElementById('bgm');
-
-    function changeChannel() {
-        if (!isPowerOn) return;
-
-        // Efek Suara & Visual Statis (Kresek)
-        document.getElementById('static-sfx').play();
-        noise.style.display = 'block';
-        knob.style.transform += 'rotate(45deg)';
-        bgm.play().catch(e => {});
-
-        setTimeout(() => {
-            noise.style.display = 'none';
-            
-            // Pilih Foto, Teks, & VN Random
-            const randomImg = images[Math.floor(Math.random() * images.length)];
-            const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-            const vNum = Math.floor(Math.random() * 5) + 1;
-
-            imgEl.src = randomImg;
-            msgText.innerText = randomMsg;
-            
-            // Play VN
-            const sound = document.getElementById('v' + vNum);
+            // Play voice note secara acak (1-5)
+            const randomVoice = Math.floor(Math.random() * 5) + 1;
+            const sound = document.getElementById('v' + randomVoice);
             sound.currentTime = 0;
             sound.play();
 
-            // Efek Glitch Visual sebentar
-            imgEl.style.filter = `hue-rotate(${Math.random()*360}deg) contrast(1.5)`;
-            setTimeout(() => {
-                imgEl.style.filter = "contrast(1.2) brightness(1.1) sepia(0.3)";
-            }, 200);
-
-        }, 500);
-    }
-
-    function togglePower() {
-        isPowerOn = !isPowerOn;
-        if (!isPowerOn) {
-            imgEl.style.display = 'none';
-            msgText.innerText = "> SYSTEM OFF";
-            bgm.pause();
-        } else {
-            imgEl.style.display = 'block';
-            changeChannel();
+            // Efek Hati Betebaran
+            for (let i = 0; i < 10; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerText = ['💖', '💗', '💓', '💝'][Math.floor(Math.random() * 4)];
+                heart.style.left = (Math.random() * 100) + 'vw';
+                heart.style.top = (Math.random() * 80 + 20) + 'vh'; // Hati muncul di area layar
+                heart.style.animationDelay = (Math.random() * 0.5) + 's';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 2000);
+            }
         }
-    }
-</script>
-
+    </script>
 </body>
 </html>
