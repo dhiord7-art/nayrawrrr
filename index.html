@@ -3,141 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nayla's Pop-Up World 🌸</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <title>Nayla's Memory Plant 🌿✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
     <style>
         :root {
-            --pink-soft: #ffdde1;
-            --blue-soft: #ee9ca7;
-            --text-color: #884d54;
+            --bg-color: #fdfae5; /* Cream lembut */
+            --pot-color: #ffb7b2; /* Pink pastel */
+            --leaf-color: #b5e7a0; /* Hijau muda */
+            --text-color: #6b4f4f;
         }
 
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Quicksand', sans-serif;
-            background: linear-gradient(to bottom, #ffdee9, #b5fffc);
+            font-family: 'Handlee', cursive;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             height: 100vh;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: var(--text-color);
+            justify-content: center;
+            overflow: hidden;
         }
 
-        /* Header UI */
-        #ui-layer {
-            margin-top: 20px;
-            text-align: center;
+        /* Dekorasi Latar Belakang */
+        .cloud {
+            position: fixed;
+            background: white;
+            border-radius: 50px;
+            opacity: 0.6;
+            z-index: 1;
+        }
+
+        /* Area Utama Game */
+        #garden-area {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end; /* Tanaman tumbuh dari bawah */
             z-index: 10;
         }
 
-        .score-board {
-            background: white;
-            padding: 10px 25px;
-            border-radius: 50px;
-            font-size: 20px;
-            font-weight: bold;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.05);
-            border: 3px solid var(--pink-soft);
-        }
-
-        /* Game Area */
-        #game-container {
-            position: relative;
-            width: 100%;
-            flex-grow: 1;
-            margin: 20px;
-        }
-
-        /* Bubble Style */
-        .bubble {
-            position: absolute;
-            width: 100px;
+        /* Pot Tanaman */
+        #pot {
+            width: 120px;
             height: 100px;
-            background: white;
+            background-color: var(--pot-color);
+            border-radius: 10px 10px 50px 50px;
+            box-shadow: 0 10px 0 #e09e99;
+            position: relative;
+            z-index: 20;
+            border: 4px solid #6b4f4f;
+        }
+
+        #pot::after { /* Tanah */
+            content: '';
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; height: 20px;
+            background: #a1887f;
+            border-radius: 50%;
+        }
+
+        /* Batang Tanaman (Tumbuh Dinamis) */
+        #stem {
+            width: 15px;
+            height: 20px; /* Tinggi awal tunas */
+            background-color: #81c784;
+            border-radius: 10px 10px 0 0;
+            position: absolute;
+            bottom: 90px; /* Di atas pot */
+            transition: height 0.5s dashed;
+            z-index: 15;
+            border: 3px solid #6b4f4f;
+        }
+
+        /* Foto yang muncul sebagai "Buah" */
+        .memory-fruit {
+            position: absolute;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             border: 4px solid white;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            overflow: hidden;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            transition: transform 0.2s;
-        }
-
-        .bubble img {
-            width: 100%;
-            height: 100%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             object-fit: cover;
+            animation: fruitPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            z-index: 25;
         }
 
-        .bubble:active {
-            transform: scale(0.8);
+        @keyframes fruitPop {
+            0% { transform: scale(0) rotate(-30deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
         }
 
-        @keyframes popIn {
-            0% { transform: scale(0); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        @keyframes popOut {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(0); opacity: 0; }
-        }
-
-        /* Overlay & Start Button */
-        #overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(5px);
+        /* Area Kontrol */
+        #controls {
+            margin-top: 30px;
+            text-align: center;
             z-index: 100;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
         }
 
-        .start-btn {
-            background: var(--blue-soft);
+        .btn-water {
+            background-color: #81d4fa; /* Biru air */
             color: white;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 30px;
+            border: 4px solid #6b4f4f;
+            padding: 15px 30px;
+            font-family: 'Handlee', cursive;
             font-size: 18px;
-            font-family: 'Quicksand', sans-serif;
             font-weight: bold;
+            border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 10px 20px rgba(238, 156, 167, 0.4);
-            transition: 0.3s;
+            box-shadow: 0 6px 0 #4ba3c7;
+            transition: all 0.2s;
         }
 
-        .start-btn:hover { transform: translateY(-5px); }
+        .btn-water:active {
+            margin-top: 6px;
+            box-shadow: 0 0px 0 #4ba3c7;
+        }
 
-        /* Floating decoration */
-        .deco { position: fixed; font-size: 24px; opacity: 0.5; z-index: 1; }
+        .btn-water:disabled {
+            background-color: #b0bec5;
+            box-shadow: 0 6px 0 #78909c;
+            cursor: not-allowed;
+        }
+
+        /* Dialog Teks */
+        #status-text {
+            background: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 3px solid #6b4f4f;
+            margin-bottom: 15px;
+            font-size: 14px;
+            max-width: 250px;
+        }
+
     </style>
 </head>
 <body>
 
-<div id="ui-layer">
-    <div class="score-board">Pop Count: <span id="score">0</span> 🌸</div>
-    <p style="font-size: 14px; margin-top: 5px;">Cari fotonya dan klik yaa!</p>
+<div class="cloud" style="width: 200px; height: 60px; top: 10%; left: -50px;"></div>
+<div class="cloud" style="width: 150px; height: 50px; top: 20%; right: -30px;"></div>
+<div class="cloud" style="width: 100px; height: 40px; bottom: 15%; left: 10%;"></div>
+
+<div id="garden-area">
+    <div id="stem"></div>
+    <div id="pot"></div>
 </div>
 
-<div id="game-container"></div>
-
-<div id="overlay">
-    <h1 style="font-size: 28px;">Nayla's Pop-Up 🎀</h1>
-    <p style="text-align: center; padding: 0 20px;">Klik setiap foto yang muncul buat dengerin suaranya!</p>
-    <button class="start-btn" onclick="startGame()">Mulai Main!</button>
+<div id="controls">
+    <div id="status-text">Hi Nayla! Siram aku dengan kenangan yuk biar aku tumbuh... 🌱</div>
+    <button class="btn-water" id="waterBtn" onclick="waterPlant()">💧 Siram Kenangan</button>
 </div>
 
 <audio id="bgm" src="bestparpart.m4a" loop></audio>
-<audio id="v1" src="bintang1.m4a"></audio>
+<audio id="waterSound" src="surprise.mp3"></audio> <audio id="v1" src="bintang1.m4a"></audio>
 <audio id="v2" src="bintang2.m4a"></audio>
 <audio id="v3" src="bintang3.m4a"></audio>
 <audio id="v4" src="bintang4.m4a"></audio>
@@ -151,74 +175,95 @@
         'k16.JPG', 'k17.jpg', 'k18.JPG', 'k19.JPG', 'k20.JPG', 'k21.JPG', 'k22.jpg', 'k23.jpg'
     ];
 
-    let score = 0;
-    const container = document.getElementById('game-container');
+    const messages = [
+        "Wah, segar! Matur nuwun, Nayla... 🥰",
+        "Tumbuh sedikit! Terus siram yaa...",
+        "Lihat! Ada memori yang tumbuh di rantingku!",
+        "Kangen ya? Hehe. Siram lagi dong...",
+        "Aku sudah makin tinggi! Kamu hebat merawatnya.",
+        "Memorinya manis banget, bikin aku berbunga-bunga! 🌸"
+    ];
 
-    function startGame() {
-        document.getElementById('overlay').style.display = 'none';
-        document.getElementById('bgm').play();
-        spawnPopUp();
-        addDecoration();
-    }
+    let waterCount = 0;
+    let stemHeight = 20;
+    const stem = document.getElementById('stem');
+    const statusText = document.getElementById('status-text');
+    const waterBtn = document.getElementById('waterBtn');
+    const gardenArea = document.getElementById('garden-area');
+    const bgm = document.getElementById('bgm');
+    let bgmStarted = false;
 
-    function spawnPopUp() {
-        // Membuat bubble baru
-        const bubble = document.createElement('div');
-        bubble.className = 'bubble';
+    function waterPlant() {
+        if (!bgmStarted) { bgm.play(); bgmStarted = true; }
         
-        // Pilih gambar acak
-        const img = document.createElement('img');
-        img.src = images[Math.floor(Math.random() * images.length)];
-        bubble.appendChild(img);
+        waterCount++;
+        
+        // 1. Suara Siram
+        document.getElementById('waterSound').play();
 
-        // Posisi acak (pastikan tidak keluar layar)
-        const x = Math.random() * (window.innerWidth - 120);
-        const y = Math.random() * (container.offsetHeight - 120);
-        bubble.style.left = x + 'px';
-        bubble.style.top = y + 'px';
+        // 2. Batang Tumbuh
+        stemHeight += 15; // Tumbuh 15px setiap siram
+        stem.style.height = stemHeight + 'px';
 
-        container.appendChild(bubble);
+        // 3. Munculkan Foto ("Buah Memori")
+        createMemoryFruit();
 
-        // Menghilang otomatis setelah 2 detik kalau tidak diklik
-        const autoRemove = setTimeout(() => {
-            if(bubble.parentElement) {
-                bubble.style.animation = 'popOut 0.3s forwards';
-                setTimeout(() => bubble.remove(), 300);
-            }
-        }, 2000);
+        // 4. Suara Voice Note Acak
+        const vNum = Math.floor(Math.random() * 5) + 1;
+        const sound = document.getElementById('v' + vNum);
+        sound.currentTime = 0; // Reset suara biar bisa tumpang tindih lucu
+        sound.play();
 
-        // Saat diklik
-        bubble.onclick = () => {
-            clearTimeout(autoRemove);
-            score++;
-            document.getElementById('score').innerText = score;
+        // 5. Update Teks Status
+        statusText.innerText = messages[Math.min(waterCount, messages.length - 1)];
 
-            // Suara acak
-            const vNum = Math.floor(Math.random() * 5) + 1;
-            const sound = document.getElementById('v' + vNum);
-            sound.currentTime = 0;
-            sound.play();
+        // 6. Efek Daun Kecil Berguguran (Opsional)
+        createFallingLeaf();
 
-            bubble.style.animation = 'popOut 0.2s forwards';
-            setTimeout(() => bubble.remove(), 200);
-        };
-
-        // Atur kecepatan kemunculan berikutnya (makin lama makin dikit jedanya)
-        let nextSpawn = Math.max(600, 1200 - (score * 10));
-        setTimeout(spawnPopUp, nextSpawn);
+        // Batasi penyiraman agar tidak crash
+        waterBtn.disabled = true;
+        setTimeout(() => waterBtn.disabled = false, 800); // Jeda 0.8 detik
     }
 
-    function addDecoration() {
-        const emojis = ['✨', '☁️', '💖', '🍀', '🍓'];
-        setInterval(() => {
-            const d = document.createElement('div');
-            d.className = 'deco';
-            d.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-            d.style.left = Math.random() * 100 + 'vw';
-            d.style.top = Math.random() * 100 + 'vh';
-            document.body.appendChild(d);
-            setTimeout(() => d.remove(), 3000);
-        }, 1000);
+    function createMemoryFruit() {
+        const fruit = document.createElement('img');
+        fruit.className = 'memory-fruit';
+        fruit.src = images[Math.floor(Math.random() * images.length)];
+        
+        // Posisi di sekitar batang yang tumbuh
+        const currentStemTop = 400 - 90 - stemHeight; // Kalkulasi posisi top batang
+        const randomX = Math.random() * 100 - 50; // -50 sampai 50px dari tengah
+
+        fruit.style.bottom = (90 + stemHeight - 30) + 'px'; // Di sekitar ujung batang
+        fruit.style.left = (150 + randomX - 30) + 'px'; // Di sekitar tengah area garden
+
+        gardenArea.appendChild(fruit);
+
+        // Foto tidak hilang, tapi kalau terlalu banyak, kita hapus yang paling lama
+        const allFruits = document.querySelectorAll('.memory-fruit');
+        if (allFruits.length > 8) {
+            allFruits[0].remove();
+        }
+    }
+
+    function createFallingLeaf() {
+        const leaf = document.createElement('div');
+        leaf.innerText = '🍃';
+        leaf.style.position = 'absolute';
+        leaf.style.left = (Math.random() * 300) + 'px';
+        leaf.style.top = '-20px';
+        leaf.style.zIndex = '50';
+        leaf.style.fontSize = '20px';
+        leaf.style.transition = 'transform 2s, opacity 2s';
+        
+        gardenArea.appendChild(leaf);
+
+        setTimeout(() => {
+            leaf.style.transform = `translateY(400px) rotate(${Math.random()*360}deg)`;
+            leaf.style.opacity = '0';
+        }, 50);
+
+        setTimeout(() => leaf.remove(), 2000);
     }
 </script>
 
